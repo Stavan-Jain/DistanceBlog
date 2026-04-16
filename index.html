@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Topological Proof That the Surface Code Has Distance L</title>
+
+<!-- KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false,
+    strict: false
+  });"></script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --text:      #1a1a1a;
+  --muted:     #555;
+  --border:    #ddd;
+  --accent:    #5b4fcf;
+  --accent-bg: #f3f1ff;
+  --card-bg:   #fafafa;
+  --link:      #3d4ec5;
+  --serif:     'Georgia', 'Times New Roman', serif;
+  --sans:      -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --max:       700px;
+}
+
+html { font-size: 18px; }
+
+body {
+  font-family: var(--serif);
+  color: var(--text);
+  background: #fff;
+  line-height: 1.75;
+  padding: 2rem 1.25rem 6rem;
+}
+
+article { max-width: var(--max); margin: 0 auto; }
+
+h1 { font-size: 1.9rem; line-height: 1.25; margin-bottom: 0.4rem; font-weight: 700; }
+
+.byline {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 3.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 { font-size: 1.1rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.5rem; }
+
+p { margin-bottom: 1.1rem; }
+
+a { color: var(--link); }
+a:hover { text-decoration: none; }
+
+ul, ol { margin: 0.75rem 0 1.1rem 1.5rem; }
+li { margin-bottom: 0.3rem; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+  margin: 1.25rem 0;
+}
+
+/* Definition / Lemma / Theorem blocks */
+.block {
+  background: var(--card-bg);
+  border-left: 3px solid var(--accent);
+  padding: 0.9rem 1.1rem;
+  margin: 1.25rem 0;
+  border-radius: 0 4px 4px 0;
+}
+.block-label {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+/* Proof */
+.proof {
+  margin: 0.5rem 0 1.1rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  color: var(--muted);
+}
+.proof-label { font-style: italic; font-weight: bold; }
+.qed { float: right; }
+
+/* ── Review area ── */
+.review-area {
+  background: var(--accent-bg);
+  border: 1px solid #d0c8f5;
+  border-radius: 8px;
+  padding: 1.4rem 1.4rem 1.1rem;
+  margin: 2.5rem 0;
+  font-family: var(--sans);
+}
+
+.review-area-header {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.prompt-card {
+  background: #fff;
+  border: 1px solid #d0c8f5;
+  border-radius: 6px;
+  margin-bottom: 0.85rem;
+  overflow: hidden;
+}
+
+.prompt-question {
+  padding: 0.8rem 1rem;
+  font-size: 0.93rem;
+  line-height: 1.55;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--serif);
+}
+
+.prompt-answer {
+  display: none;
+  padding: 0.7rem 1rem 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  background: #f7f5ff;
+  border-top: 1px solid #d0c8f5;
+  color: #333;
+  font-family: var(--serif);
+}
+.prompt-answer.visible { display: block; }
+
+.prompt-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 1rem 0.55rem;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.btn-show {
+  font-size: 0.78rem;
+  font-family: var(--sans);
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.28rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.14s;
+}
+.btn-show:hover { background: #4a3fb5; }
+.btn-show.hide-btn { background: #888; }
+.btn-show.hide-btn:hover { background: #666; }
+
+.rating-group { display: none; gap: 0.35rem; align-items: center; }
+.rating-group.visible { display: flex; }
+
+.rating-label { font-size: 0.72rem; color: var(--muted); margin-right: 0.1rem; }
+
+.btn-rate {
+  font-size: 0.72rem;
+  font-family: var(--sans);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.18rem 0.5rem;
+  cursor: pointer;
+  background: #fff;
+  transition: background 0.1s, border-color 0.1s;
+}
+.btn-rate:hover { background: var(--accent-bg); border-color: var(--accent); }
+.btn-rate.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.prompt-status {
+  font-size: 0.7rem;
+  color: var(--accent);
+  padding: 0 1rem 0.45rem;
+  display: none;
+  font-style: italic;
+}
+.prompt-status.visible { display: block; }
+
+@media (max-width: 520px) {
+  html { font-size: 16px; }
+  h1   { font-size: 1.5rem; }
+  .review-area { padding: 1rem 1rem 0.85rem; }
+}
+</style>
+</head>
+<body>
+<article>
+
+<h1>A Topological Proof That the Surface Code Has Distance $L$</h1>
+<p class="byline">A mnemonic medium essay &mdash; prompts after each section help you retain the key ideas</p>
+
+<!-- INTRO -->
+<h2>Why this post?</h2>
+<p>If you've read an introduction to the toric code &mdash; say, <a href="https://arthurpesah.me/blog/2023-05-13-surface-code/">Arthur Pesah's excellent interactive post</a> &mdash; you've probably seen the claim that the toric code on an $L \times L$ lattice has distance $L$. And you probably feel like you understand why: the shortest non-contractible loop on the torus has $L$ edges, so the lightest non-trivial logical operator has weight $L$.</p>
+<p>It's worth examining this argument carefully, because one of its steps is doing more work than it might seem.</p>
+
+<h2>The standard argument and its gap</h2>
+<p>The argument, as typically presented, has three steps:</p>
+<ol>
+  <li><strong>Logical operators are loops.</strong> An X-type operator on some edge-set $c$ commutes with all Z-stabilizers if and only if $c$ forms a cycle (every vertex has even degree). It acts trivially on the codespace (i.e., it is a stabilizer) if and only if $c$ is a boundary &mdash; the perimeter of some set of faces. So non-trivial logical operators correspond to cycles that are not boundaries: non-contractible loops.</li>
+  <li><strong>There exist non-contractible loops of length $L$.</strong> A horizontal row of $L$ edges wrapping around the torus is such a loop. So the distance is at most $L$.</li>
+  <li><strong>No non-contractible loop has length less than $L$.</strong> A non-contractible loop must "wrap all the way around" the torus, which requires at least $L$ edges. Therefore the distance is at least $L$.</li>
+</ol>
+<p>Steps 1 and 2 are solid. Step 3 is the problem. It feels obvious &mdash; of course you need at least $L$ edges to get around an $L \times L$ torus. But "wrapping all the way around" is doing a lot of informal work here. A non-contractible loop doesn't have to look like a straight horizontal line. It could zig-zag, include vertical segments, wander wildly across the lattice. Why can't some clever squiggly path wrap around the torus using fewer than $L$ edges? The geometric intuition is compelling, but it isn't a proof.</p>
+<p>To make it a proof, we need to answer two questions precisely:</p>
+<ul>
+  <li><strong>What exactly distinguishes a non-contractible loop from a contractible one?</strong> We need a formal invariant &mdash; a quantity we can compute from a cycle that is zero for all boundaries and nonzero for non-contractible loops.</li>
+  <li><strong>Why does this invariant force a minimum weight?</strong> We need to show that any cycle with a nonzero invariant must use at least $L$ edges.</li>
+</ul>
+
+<h2>The topological approach</h2>
+<p>This is where the language of homology enters. The key idea is to define two $\mathbb{F}_2$-valued invariants, $h(c)$ and $v(c)$, that detect whether a cycle "wraps around" the torus horizontally or vertically. These invariants have three crucial properties:</p>
+<ul>
+  <li>They are <strong>well-defined on homology classes</strong>: adding a boundary to a cycle doesn't change its $h$ or $v$ values.</li>
+  <li>They <strong>completely classify</strong> the four cosets of the first homology group $H_1$. A cycle is a boundary if and only if $h = v = 0$.</li>
+  <li>They <strong>force a minimum weight</strong>. If $h(c) = 1$, then $c$ must contain at least one horizontal edge at each of $L$ distinct $x$-coordinates &mdash; giving at least $L$ edges. Similarly for $v(c) = 1$.</li>
+</ul>
+
+<h2>What you'll need</h2>
+<p>This post assumes familiarity with the stabilizer formalism (stabilizer groups, codespace, logical operators, distance). If you need a refresher, Arthur Pesah's <a href="https://arthurpesah.me/blog/2023-01-31-stabilizer-formalism-1/">series on the stabilizer formalism</a> is a great starting point. We'll also use basic linear algebra over $\mathbb{F}_2$ (vector spaces, kernels, rank-nullity), but no prior knowledge of algebraic topology &mdash; we build up everything we need from scratch.</p>
+
+<h2>Roadmap</h2>
+<p>Sections 1&ndash;3 set up the lattice, define the chain complex, and introduce cycles, boundaries, and the first homology group $H_1$. Section 4 connects this formalism to the toric code. Section 5 computes $\dim(H_1) = 2$ using rank-nullity. Section 6 defines the invariants $h$ and $v$. Section 7 proves that these invariants give an isomorphism $H_1 \cong \mathbb{F}_2^2$. Section 8 combines everything to prove that the distance is exactly $L$.</p>
+
+<hr>
+
+<!-- SECTION 1 -->
+<h2>1. The Lattice</h2>
+<p>We work with the surface code on a torus (periodic boundary conditions), sometimes called the <em>toric code</em>. The lattice is an $L \times L$ square grid, with all arithmetic on coordinates taken modulo $L$.</p>
+<ul>
+  <li><strong>Vertices:</strong> $(x, y)$ for $x, y \in \{0, 1, \ldots, L-1\}$. There are $L^2$ vertices.</li>
+  <li><strong>Edges:</strong> Two types.
+    <ul>
+      <li><em>Horizontal edges:</em> $H(x, y)$ connects $(x, y)$ to $(x+1, y)$.</li>
+      <li><em>Vertical edges:</em> $V(x, y)$ connects $(x, y)$ to $(x, y+1)$.</li>
+      <li>In total, $n = 2L^2$ edges.</li>
+    </ul>
+  </li>
+  <li><strong>Faces:</strong> $F(x, y)$ is the unit square with corners $(x,y)$, $(x+1,y)$, $(x,y+1)$, $(x+1,y+1)$. There are $L^2$ faces, with boundary edges Bottom $H(x,y)$, Top $H(x,y+1)$, Left $V(x,y)$, Right $V(x+1,y)$.</li>
+</ul>
+<p>Each edge borders exactly two faces. Each vertex is incident to exactly four edges: $H(x-1,y)$, $H(x,y)$, $V(x,y-1)$, $V(x,y)$.</p>
+<p>The toric code places one qubit on each of the $2L^2$ edges and defines:</p>
+<ul>
+  <li><strong>X-type (plaquette) stabilizers:</strong> For each face $f$, apply $X$ to the four boundary edges of $f$.</li>
+  <li><strong>Z-type (vertex) stabilizers:</strong> For each vertex $v$, apply $Z$ to the four edges incident to $v$.</li>
+</ul>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; The Lattice</div>
+  <div class="prompt-card" data-id="1.1">
+    <div class="prompt-question">In the toric code on an $L \times L$ lattice, where are the qubits placed?</div>
+    <div class="prompt-answer">On the edges of the lattice. There are $2L^2$ qubits total ($L^2$ horizontal edges and $L^2$ vertical edges).</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button>
+        <button class="btn-rate" data-val="2">Barely</button>
+        <button class="btn-rate" data-val="3">Yes</button>
+        <button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="1.2">
+    <div class="prompt-question">What are the two types of stabilizers in the toric code?</div>
+    <div class="prompt-answer">X-type (plaquette) stabilizers, which apply $X$ to the four edges bounding a face, and Z-type (vertex) stabilizers, which apply $Z$ to the four edges incident to a vertex.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button>
+        <button class="btn-rate" data-val="2">Barely</button>
+        <button class="btn-rate" data-val="3">Yes</button>
+        <button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="1.3">
+    <div class="prompt-question">On the torus, how many faces does each edge border?</div>
+    <div class="prompt-answer">Exactly two, because of the periodic boundary conditions. (No edge is on a "boundary" of the lattice.)</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button>
+        <button class="btn-rate" data-val="2">Barely</button>
+        <button class="btn-rate" data-val="3">Yes</button>
+        <button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 2 -->
+<h2>2. The Chain Complex over $\mathbb{F}_2$</h2>
+<p>Our goal is to reason algebraically about subsets of edges. We represent edge-sets, vertex-sets, and face-sets as vectors over $\mathbb{F}_2 = \{0,1\}$, and the geometric notion of "taking the boundary" becomes a linear map.</p>
+
+<div class="block">
+  <div class="block-label">Definition ($k$-cells and chains)</div>
+  <p>The <em>$k$-cells</em> of the lattice are: 0-cells (vertices), 1-cells (edges), 2-cells (faces).</p>
+  <p>A <em>$k$-chain</em> is an $\mathbb{F}_2$-linear combination of $k$-cells — equivalently, a subset of $k$-cells, where addition is symmetric difference. The chain spaces are:
+  <ul>
+    <li>$C_0 = \mathbb{F}_2^{L^2}$ — subsets of vertices</li>
+    <li>$C_1 = \mathbb{F}_2^{2L^2}$ — subsets of edges</li>
+    <li>$C_2 = \mathbb{F}_2^{L^2}$ — subsets of faces</li>
+  </ul></p>
+  <p>The <em>weight</em> $|c|$ of a 1-chain is the number of edges with coefficient 1.</p>
+</div>
+
+<div class="block">
+  <div class="block-label">Definition (Boundary maps)</div>
+  $\partial_2 : C_2 \to C_1$ sends a face to the sum of its four boundary edges:
+  $$\partial_2(F(x,y)) = H(x,y) + H(x,y+1) + V(x,y) + V(x+1,y)$$
+  An edge $e$ is in $\partial_2(\mathcal{F})$ iff exactly one of the two faces bordering $e$ is in $\mathcal{F}$.
+
+  $\partial_1 : C_1 \to C_0$ sends an edge to the sum of its two endpoints:
+  $\partial_1(H(x,y)) = (x,y)+(x+1,y)$, $\quad\partial_1(V(x,y)) = (x,y)+(x,y+1)$.
+  A vertex $v$ is in $\partial_1(E)$ iff an odd number of edges in $E$ are incident to $v$.
+</div>
+
+<div class="block">
+  <div class="block-label">Lemma 2.1</div>
+  $\partial_1 \circ \partial_2 = 0$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> Apply both maps to a single face $F(x,y)$:
+  $$\partial_1(\partial_2(F(x,y))) = [(x,y)+(x+1,y)] + [(x,y+1)+(x+1,y+1)] + [(x,y)+(x,y+1)] + [(x+1,y)+(x+1,y+1)]$$
+  Each of the four corner vertices appears exactly twice, so each cancels over $\mathbb{F}_2$. <span class="qed">$\square$</span>
+</div>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; The Chain Complex</div>
+  <div class="prompt-card" data-id="2.1">
+    <div class="prompt-question">What does the boundary map $\partial_2$ do to a single face $F(x,y)$?</div>
+    <div class="prompt-answer">It returns the sum (over $\mathbb{F}_2$) of the four edges bounding that face: $H(x,y) + H(x,y+1) + V(x,y) + V(x+1,y)$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="2.2">
+    <div class="prompt-question">For a set of faces $\mathcal{F}$, when is an edge $e$ in $\partial_2(\mathcal{F})$?</div>
+    <div class="prompt-answer">When exactly one of the two faces bordering $e$ is in $\mathcal{F}$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="2.3">
+    <div class="prompt-question">What does the property $\partial_1 \circ \partial_2 = 0$ mean geometrically?</div>
+    <div class="prompt-answer">The boundary of a boundary is empty &mdash; the perimeter of any set of faces has no dangling endpoints (every vertex appears an even number of times).</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 3 -->
+<h2>3. Cycles, Boundaries, and Homology</h2>
+<p>A <em>cycle</em> is an edge-set with no dangling ends (every vertex has even degree). A <em>boundary</em> is the perimeter of some set of faces. Every boundary is automatically a cycle, but some cycles wrap around the torus without being any boundary &mdash; these are the non-trivial logical operators.</p>
+
+<div class="block">
+  <div class="block-label">Definition</div>
+  <ul>
+    <li>$Z_1 = \ker(\partial_1) \subseteq C_1$: the space of <em>1-cycles</em>.</li>
+    <li>$B_1 = \operatorname{im}(\partial_2) \subseteq C_1$: the space of <em>1-boundaries</em>.</li>
+  </ul>
+</div>
+
+<div class="block">
+  <div class="block-label">Lemma 3.1</div>
+  $B_1 \subseteq Z_1$. Every boundary is a cycle.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> If $c = \partial_2(\mathcal{F})$, then $\partial_1(c) = \partial_1(\partial_2(\mathcal{F})) = 0$ by Lemma 2.1. <span class="qed">$\square$</span>
+</div>
+
+<div class="block">
+  <div class="block-label">Definition (First homology group)</div>
+  $$H_1 = Z_1 / B_1$$
+  Two cycles $c, c'$ are <em>homologous</em> ($c \sim c'$) if $c + c' \in B_1$. They represent the same coset of $H_1$.
+</div>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; Cycles, Boundaries, Homology</div>
+  <div class="prompt-card" data-id="3.1">
+    <div class="prompt-question">What is a 1-cycle?</div>
+    <div class="prompt-answer">An edge-set where every vertex has even degree &mdash; 0, 2, or 4 edges of the set meet at each vertex.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="3.2">
+    <div class="prompt-question">What is a 1-boundary?</div>
+    <div class="prompt-answer">An edge-set that equals $\partial_2(\mathcal{F})$ for some set of faces $\mathcal{F}$ &mdash; the perimeter of a set of faces.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="3.3">
+    <div class="prompt-question">Why is every boundary automatically a cycle?</div>
+    <div class="prompt-answer">Because $\partial_1 \circ \partial_2 = 0$: applying $\partial_1$ to any boundary gives 0, meaning every vertex has even degree.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="3.4">
+    <div class="prompt-question">When are two cycles $c$ and $c'$ homologous?</div>
+    <div class="prompt-answer">When they differ by a boundary: $c + c' \in B_1$. Equivalently, they represent the same element of $H_1 = Z_1 / B_1$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 4 -->
+<h2>4. Connection to the Toric Code</h2>
+<p>Non-trivial X-type logicals correspond exactly to non-trivial elements of $H_1$ (cycles that aren't boundaries). The distance question becomes: what is the lightest non-trivial cycle?</p>
+
+<h3>4.1 X-type logicals as non-trivial cycles</h3>
+
+<div class="block">
+  <div class="block-label">Claim 4.1</div>
+  An X-type operator on edge-set $c$ commutes with all Z-type stabilizers if and only if $c \in Z_1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> The vertex stabilizer at $v$ applies $Z$ to the four edges incident to $v$. The X-type operator on $c$ anticommutes on each qubit where both operators act; the total sign is $(-1)^{|c \cap \operatorname{supp}(v)|}$. This is $+1$ for all $v$ iff every vertex has even degree in $c$, i.e., $c \in Z_1$. <span class="qed">$\square$</span>
+</div>
+
+<div class="block">
+  <div class="block-label">Claim 4.2</div>
+  An X-type operator on edge-set $c$ is a product of plaquette stabilizers if and only if $c \in B_1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> A product of plaquette stabilizers for face-set $\mathcal{F}$ is the X-type operator on $\partial_2(\mathcal{F})$. Every element of $B_1 = \operatorname{im}(\partial_2)$ arises this way. <span class="qed">$\square$</span>
+</div>
+
+<p>Combining: an X-type operator on $c$ is a <em>non-trivial</em> X-type logical iff $c \in Z_1 \setminus B_1$, i.e., $c$ represents a non-trivial element of $H_1$. The X-distance is:
+$$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
+</p>
+
+<h3>4.2 Z-type logicals and the dual lattice</h3>
+
+<div class="block">
+  <div class="block-label">Definition (Dual lattice)</div>
+  The <em>dual lattice</em> is obtained by placing a dual vertex $f^*$ at the center of each face $f$, a dual edge $e^*$ for each primal edge $e$ (connecting the two adjacent dual vertices), and a dual face $v^*$ for each primal vertex $v$. The dual is again an $L \times L$ torus with the same combinatorial structure.
+</div>
+<p>A Z-type operator on primal edge-set $c$ commutes with all X-type stabilizers iff the dual edge-set $c^* = \{e^* : e \in c\}$ is a cycle in the dual lattice. It is a product of vertex stabilizers iff $c^*$ is a boundary. So $d_Z$ = minimum weight of a non-trivial cycle in the dual lattice. We focus on $d_X = L$ first (Sections 5&ndash;8.2).</p>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; Connection to the Toric Code</div>
+  <div class="prompt-card" data-id="4.1">
+    <div class="prompt-question">An X-type operator on edge-set $c$ commutes with all Z-type stabilizers if and only if $c$ satisfies what condition?</div>
+    <div class="prompt-answer">$c$ is a cycle &mdash; every vertex has even degree in $c$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="4.2">
+    <div class="prompt-question">A non-trivial X-type logical operator corresponds to what kind of cycle?</div>
+    <div class="prompt-answer">A cycle that is not a boundary &mdash; a non-trivial element of $H_1 = Z_1 / B_1$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="4.3">
+    <div class="prompt-question">What is the dual lattice of the $L \times L$ torus, and why is it useful?</div>
+    <div class="prompt-answer">It places a vertex at the center of each primal face, connects them by dual edges (one per primal edge), and turns primal vertices into dual faces. Z-type logicals on the primal lattice correspond to cycles on the dual lattice, so we can reuse the same homological framework for both X-type and Z-type distance.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 5 -->
+<h2>5. Dimension of $H_1$</h2>
+<p>We prove $\dim(H_1) = 2$, which tells us the toric code encodes $k = 2$ logical qubits and $H_1$ has $2^2 = 4$ cosets. Since $H_1 = Z_1/B_1$, we need $\dim(Z_1)$ and $\dim(B_1)$ separately. Our tool is rank-nullity.</p>
+
+<div class="block">
+  <div class="block-label">Theorem (Rank-nullity)</div>
+  For a linear map $T: V \to W$: $\;\dim(V) = \dim(\ker T) + \operatorname{rank}(T)$.
+  Also, $\operatorname{rank}(T) = \operatorname{rank}(T^T)$ (rank equals rank of transpose over any field).
+</div>
+
+<h3>5.2 Computing $\dim(Z_1)$</h3>
+<p>$Z_1 = \ker(\partial_1)$. By rank-nullity: $2L^2 = \dim(Z_1) + \operatorname{rank}(\partial_1)$. We compute $\operatorname{rank}(\partial_1)$ via its transpose.</p>
+<p>$\partial_1^T: C_0 \to C_1$ maps a vertex-subset $S$ to the <em>edge cut</em> of $S$: edges with exactly one endpoint in $S$.</p>
+
+<div class="block">
+  <div class="block-label">Lemma 5.1</div>
+  $\dim(\ker(\partial_1^T)) = 1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> $S \in \ker(\partial_1^T)$ iff no edge has exactly one endpoint in $S$, i.e., every edge has both or neither endpoints in $S$. Since the lattice is connected, $S$ must be $\emptyset$ or all vertices. <span class="qed">$\square$</span>
+</div>
+
+<div class="block">
+  <div class="block-label">Corollary 5.2</div>
+  $\operatorname{rank}(\partial_1) = L^2 - 1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> By rank-nullity on $\partial_1^T: C_0 \to C_1$: $\operatorname{rank}(\partial_1^T) = L^2 - 1$. Since $\operatorname{rank}(\partial_1) = \operatorname{rank}(\partial_1^T)$, done. <span class="qed">$\square$</span>
+</div>
+
+<div class="block">
+  <div class="block-label">Corollary 5.3</div>
+  $\dim(Z_1) = L^2 + 1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> $\dim(Z_1) = 2L^2 - (L^2-1) = L^2+1$. <span class="qed">$\square$</span>
+</div>
+
+<h3>5.3 Computing $\dim(B_1)$</h3>
+<p>$B_1 = \operatorname{im}(\partial_2)$, so $\dim(B_1) = \operatorname{rank}(\partial_2)$. By rank-nullity: $L^2 = \dim(\ker(\partial_2)) + \dim(B_1)$.</p>
+
+<div class="block">
+  <div class="block-label">Lemma 5.4</div>
+  $\dim(\ker(\partial_2)) = 1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> $\mathcal{F} \in \ker(\partial_2)$ iff every edge borders an even number of faces in $\mathcal{F}$. Since each edge borders exactly two faces, adjacent faces must both be in $\mathcal{F}$ or both absent. By connectedness of the face-adjacency graph, $\mathcal{F}$ is $\emptyset$ or all faces. <span class="qed">$\square$</span>
+</div>
+
+<div class="block">
+  <div class="block-label">Corollary 5.5</div>
+  $\dim(B_1) = L^2 - 1$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> $\dim(B_1) = L^2 - 1$. <span class="qed">$\square$</span>
+</div>
+
+<h3>5.4 The dimension of $H_1$</h3>
+
+<div class="block">
+  <div class="block-label">Theorem 5.6</div>
+  $\dim(H_1) = 2$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span>
+  $$\dim(H_1) = \dim(Z_1) - \dim(B_1) = (L^2+1) - (L^2-1) = 2. \quad\square$$
+</div>
+<p>Since $H_1$ is a 2-dimensional vector space over $\mathbb{F}_2$, it has exactly $2^2 = 4$ elements (cosets).</p>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; Dimension of $H_1$</div>
+  <div class="prompt-card" data-id="5.1">
+    <div class="prompt-question">What is $\dim(H_1)$ for the $L \times L$ torus over $\mathbb{F}_2$?</div>
+    <div class="prompt-answer">2. This means the toric code encodes 2 logical qubits and $H_1$ has $2^2 = 4$ cosets.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="5.2">
+    <div class="prompt-question">In the computation of $\dim(Z_1)$, why do we analyze the transpose $\partial_1^T$ instead of $\partial_1$ directly?</div>
+    <div class="prompt-answer">Because $\ker(\partial_1^T)$ is easy to characterize: it consists of vertex-labelings where adjacent vertices always agree, which forces the labeling to be constant (by connectedness). This gives $\dim(\ker(\partial_1^T)) = 1$, so $\operatorname{rank}(\partial_1) = L^2 - 1$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="5.3">
+    <div class="prompt-question">Why is $\dim(\ker(\partial_2)) = 1$?</div>
+    <div class="prompt-answer">A face-set $\mathcal{F}$ is in $\ker(\partial_2)$ iff every edge borders an even number of faces in $\mathcal{F}$. Since each edge borders exactly two faces, adjacent faces must have the same membership. Connectedness forces $\mathcal{F}$ to be either empty or all faces.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 6 -->
+<h2>6. The Invariants $h$ and $v$</h2>
+<p>We know $H_1 \cong \mathbb{F}_2^2$ as sets (4 cosets), but how do we tell which coset a cycle belongs to? We define two parity-valued invariants.</p>
+
+<h3>6.1 Definitions</h3>
+
+<div class="block">
+  <div class="block-label">Definition</div>
+  For $c \in C_1$ and $x_0 \in \{0,\ldots,L-1\}$:
+  $$h_{x_0}(c) = \bigl|\{y : H(x_0, y) \in c\}\bigr| \bmod 2$$
+  the parity of horizontal edges of $c$ at $x$-coordinate $x_0$. Similarly:
+  $$v_{y_0}(c) = \bigl|\{x : V(x, y_0) \in c\}\bigr| \bmod 2$$
+  the parity of vertical edges of $c$ at $y$-coordinate $y_0$.
+</div>
+
+<div class="block">
+  <div class="block-label">Lemma 6.1</div>
+  The maps $h_{x_0}, v_{y_0}: C_1 \to \mathbb{F}_2$ are linear.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> Over $\mathbb{F}_2$, the indicator of "exactly one of $c, c'$ contains edge $e$" equals the sum of the two indicators. So $h_{x_0}(c + c') = h_{x_0}(c) + h_{x_0}(c')$. <span class="qed">$\square$</span>
+</div>
+
+<h3>6.2 Independence of coordinate choice</h3>
+
+<div class="block">
+  <div class="block-label">Lemma 6.2</div>
+  If $c \in Z_1$, then $h_{x_0}(c)$ is the same for all $x_0$, and $v_{y_0}(c)$ is the same for all $y_0$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> Sum the even-degree condition over the $L$ vertices in column $x = x_0 + 1$:
+  $$\sum_y \deg_c(x_0+1,y) \equiv 0 \pmod{2}$$
+  Expanding: edges incident to each $(x_0+1,y)$ are $H(x_0,y)$, $H(x_0+1,y)$, $V(x_0+1,y-1)$, $V(x_0+1,y)$. Summing over all $y$, the two vertical sums run over the same $L$ edges (indices are mod $L$) and cancel:
+  $$\sum_y [H(x_0,y) \in c] + \sum_y [H(x_0{+}1,y) \in c] \equiv 0 \pmod 2$$
+  So $h_{x_0}(c) = h_{x_0+1}(c)$. <span class="qed">$\square$</span>
+</div>
+<p>For cycles we write simply $h(c)$ and $v(c)$ since the values are coordinate-independent.</p>
+
+<h3>6.3 Invariance under adding boundaries</h3>
+
+<div class="block">
+  <div class="block-label">Lemma 6.3</div>
+  If $b \in B_1$, then $h(b) = 0$ and $v(b) = 0$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> Let $b = \partial_2(\mathcal{F})$. Write $a_y = [F(x_0,y) \in \mathcal{F}]$. Then $[H(x_0,y) \in b] = a_y \oplus a_{y-1}$. Summing over $y$:
+  $$h_{x_0}(b) = \sum_y (a_y \oplus a_{y-1}) = \sum_y a_y + \sum_y a_{y-1} = 2\sum_y a_y \equiv 0 \pmod 2$$
+  since both sums run over the same values (indices mod $L$). <span class="qed">$\square$</span>
+</div>
+
+<div class="block">
+  <div class="block-label">Corollary 6.4 &amp; Lemma 6.5</div>
+  The map $\varphi: H_1 \to \mathbb{F}_2^2$ defined by $\varphi([c]) = (h(c), v(c))$ is well-defined and linear.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> <em>Well-defined:</em> if $c' = c + b$ with $b \in B_1$, then $h(c') = h(c) + h(b) = h(c)$ by Lemmas 6.1 and 6.3. <em>Linear:</em> $\varphi([c_1]+[c_2]) = (h(c_1+c_2), v(c_1+c_2)) = (h(c_1)+h(c_2), v(c_1)+v(c_2)) = \varphi([c_1])+\varphi([c_2])$. <span class="qed">$\square$</span>
+</div>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; The Invariants $h$ and $v$</div>
+  <div class="prompt-card" data-id="6.1">
+    <div class="prompt-question">What does $h(c)$ measure?</div>
+    <div class="prompt-answer">The parity (mod 2) of the number of horizontal edges of $c$ at any fixed $x$-coordinate.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="6.2">
+    <div class="prompt-question">Why is $h(c)$ the same at every $x$-coordinate (for a cycle $c$)?</div>
+    <div class="prompt-answer">Summing the even-degree condition over a column of vertices at $x = x_0 + 1$: the two vertical edge sums cancel (they run over the same set mod $L$), leaving $h_{x_0}(c) + h_{x_0+1}(c) \equiv 0$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="6.3">
+    <div class="prompt-question">What are $h(b)$ and $v(b)$ for any boundary $b$?</div>
+    <div class="prompt-answer">Both are 0. This is why $\varphi([c]) = (h(c), v(c))$ is well-defined on homology classes: adding a boundary doesn't change $h$ or $v$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 7 -->
+<h2>7. The Isomorphism $H_1 \cong \mathbb{F}_2^2$</h2>
+<p>We now show $\varphi: H_1 \to \mathbb{F}_2^2$ is an isomorphism, meaning $h$ and $v$ completely classify cosets: two cycles are homologous iff they have the same $(h,v)$ values. This guarantees every non-trivial cycle has $h=1$ or $v=1$ (or both) &mdash; the key to the distance lower bound.</p>
+
+<div class="block">
+  <div class="block-label">Theorem 7.1</div>
+  $\varphi: H_1 \to \mathbb{F}_2^2$ is an isomorphism.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span> $\dim(H_1) = 2 = \dim(\mathbb{F}_2^2)$, so it suffices to show surjectivity.
+
+  <p><strong>Representative for $(1,0)$:</strong> Let $c_h = \{H(x,0) : x=0,\ldots,L-1\}$. This is a cycle (each vertex meets 0 or 2 edges of $c_h$), has $h(c_h) = 1$ (exactly one horizontal edge per $x$-slice), $v(c_h)=0$ (no vertical edges), and is not a boundary since $h(c_h)=1 \neq 0$ while all boundaries have $h=0$. So $\varphi([c_h]) = (1,0)$.</p>
+
+  <p><strong>Representative for $(0,1)$:</strong> $c_v = \{V(0,y): y=0,\ldots,L-1\}$. By the symmetric argument, $\varphi([c_v]) = (0,1)$.</p>
+
+  <p><strong>Representative for $(1,1)$:</strong> $c_{hv} = c_h + c_v$. By linearity of $\varphi$: $\varphi([c_{hv}]) = (1,0)+(0,1) = (1,1)$.</p>
+
+  Thus $\varphi$ is surjective, hence an isomorphism. <span class="qed">$\square$</span>
+</div>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; The Isomorphism $H_1 \cong \mathbb{F}_2^2$</div>
+  <div class="prompt-card" data-id="7.1">
+    <div class="prompt-question">What are the four cosets of $H_1$, and what $(h, v)$ values do they have?</div>
+    <div class="prompt-answer">$(0,0)$: boundaries (trivial). $(1,0)$: horizontal loops. $(0,1)$: vertical loops. $(1,1)$: both.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="7.2">
+    <div class="prompt-question">How do we know the horizontal loop $c_h$ is not a boundary?</div>
+    <div class="prompt-answer">$h(c_h) = 1$, but every boundary has $h = 0$ (Lemma 6.3). So $c_h$ cannot be a boundary.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="7.3">
+    <div class="prompt-question">Why does surjectivity of $\varphi: H_1 \to \mathbb{F}_2^2$ imply that $\varphi$ is an isomorphism?</div>
+    <div class="prompt-answer">$\varphi$ is a linear map between vector spaces of the same dimension (both 2). A surjective linear map between equal-dimensional spaces is automatically injective.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- SECTION 8 -->
+<h2>8. The Distance Theorem</h2>
+<p>We now have all the tools. The isomorphism $\varphi: H_1 \to \mathbb{F}_2^2$ tells us every non-trivial cycle has $h(c)=1$ or $v(c)=1$ (or both). Lemma 6.2 says this parity is the same across all $L$ slices. Together, these force every non-trivial cycle to contribute at least one edge to each of $L$ disjoint sets.</p>
+
+<div class="block">
+  <div class="block-label">Theorem 8.1</div>
+  The X-distance of the toric code on an $L \times L$ lattice is $d_X = L$.
+</div>
+
+<h3>8.1 Upper bound: $d_X \leq L$</h3>
+<p>The horizontal loop $c_h = \{H(x,0): x=0,\ldots,L-1\}$ is non-trivial with $|c_h| = L$, so $d_X \leq L$.</p>
+
+<h3>8.2 Lower bound: $d_X \geq L$</h3>
+<p>Let $c \in Z_1 \setminus B_1$. Since $\varphi$ is injective and $c \notin B_1$, we have $\varphi([c]) \neq (0,0)$, so $h(c)=1$ or $v(c)=1$.</p>
+<p><strong>Case 1: $h(c) = 1$.</strong> Define $S_x = \{H(x,y): y = 0,\ldots,L-1\}$ for each $x$. These $L$ sets are pairwise disjoint. By Lemma 6.2, the parity of $|c \cap S_x|$ equals $h(c) = 1$ for every $x$, so $|c \cap S_x| \geq 1$ for each $x$. Therefore:
+$$|c| \geq \sum_{x=0}^{L-1} |c \cap S_x| \geq L$$</p>
+<p><strong>Case 2: $v(c) = 1$.</strong> The same argument with $T_y = \{V(x,y): x=0,\ldots,L-1\}$ gives $|c| \geq L$. $\square$</p>
+
+<h3>8.3 Z-type logicals and the full distance</h3>
+
+<div class="block">
+  <div class="block-label">Claim 8.2</div>
+  For a CSS code, $d = \min(d_X, d_Z)$.
+</div>
+<div class="proof">
+  <span class="proof-label">Proof.</span>
+  <p>Any Pauli $P$ can be written as $P = X^a Z^b$ with $a,b \in \mathbb{F}_2^n$. In a CSS code, $P$ commutes with all stabilizers iff $a \in Z_1$ and $b \in Z_1^*$ independently, and $P$ is a stabilizer iff $a \in B_1$ <em>and</em> $b \in B_1^*$. So $P$ is a non-trivial logical iff it commutes with all stabilizers and $a \in Z_1\setminus B_1$ or $b \in Z_1^*\setminus B_1^*$.</p>
+  <p><em>Lower bound:</em> if $a \in Z_1\setminus B_1$ then $\operatorname{wt}(P) \geq |a| \geq d_X$; if $b \in Z_1^*\setminus B_1^*$ then $\operatorname{wt}(P) \geq |b| \geq d_Z$. Since at least one holds, $\operatorname{wt}(P) \geq \min(d_X,d_Z)$.</p>
+  <em>Upper bound:</em> a minimum-weight non-trivial X-type logical has weight $d_X$, so $d \leq d_X$; similarly $d \leq d_Z$. Thus $d = \min(d_X, d_Z)$. <span class="qed">$\square$</span>
+</div>
+
+<p>The dual lattice has the same structure as the primal, so the entire argument gives $d_Z = L$ as well. Therefore:</p>
+$$d = \min(d_X, d_Z) = \min(L, L) = L$$
+<p>The toric code is a $[[2L^2, 2, L]]$ code: $n = 2L^2$ physical qubits, $k = 2$ logical qubits, $d = L$. $\quad\blacksquare$</p>
+
+<div class="review-area">
+  <div class="review-area-header">Review &mdash; The Distance Theorem</div>
+  <div class="prompt-card" data-id="8.1">
+    <div class="prompt-question">What is the upper bound argument for $d_X \leq L$?</div>
+    <div class="prompt-answer">The horizontal loop $c_h$ has exactly $L$ edges and is a non-trivial cycle (since $h(c_h) = 1 \neq 0$). So $d_X \leq L$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="8.2">
+    <div class="prompt-question">Why does $h(c) = 1$ imply that $|c| \geq L$?</div>
+    <div class="prompt-answer">$h(c) = 1$ means $c$ has an odd number of horizontal edges at each of the $L$ distinct $x$-coordinates. Odd $\geq 1$, and these $L$ sets are pairwise disjoint, so $|c| \geq L$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+  <div class="prompt-card" data-id="8.3">
+    <div class="prompt-question">Why does $d = \min(d_X, d_Z)$ hold for a CSS code?</div>
+    <div class="prompt-answer">Any non-trivial logical $P = X^a Z^b$ has at least one non-trivial part ($a$ or $b$). Its weight $|\operatorname{supp}(a) \cup \operatorname{supp}(b)| \geq \max(|a|, |b|)$, which is $\geq d_X$ or $\geq d_Z$. So every non-trivial logical has weight $\geq \min(d_X, d_Z)$.</div>
+    <div class="prompt-controls">
+      <button class="btn-show">Show answer</button>
+      <div class="rating-group"><span class="rating-label">Recalled?</span>
+        <button class="btn-rate" data-val="1">No</button><button class="btn-rate" data-val="2">Barely</button><button class="btn-rate" data-val="3">Yes</button><button class="btn-rate" data-val="4">Easily</button>
+      </div>
+    </div>
+    <div class="prompt-status"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- CONCLUSION -->
+<h2>Conclusion</h2>
+<p>The proof rested on a single key idea: defining invariants $h$ and $v$ that detect whether a cycle wraps around the torus horizontally or vertically. These invariants are well-defined on homology classes, completely classify the four cosets of $H_1$, and force any non-trivial cycle to contain at least $L$ edges, because the regular structure of the square lattice guarantees $L$ disjoint "slices" each contributing at least one edge.</p>
+<p>The deeper lesson is that the distance of the toric code is a <em>topological</em> fact, not a combinatorial coincidence. The number of logical qubits comes from $\dim(H_1)$, and the distance comes from the minimum weight of a non-trivial homology class. This is why the proof naturally lives in the language of homology.</p>
+<p>This perspective generalizes far beyond the square lattice. The entire framework &mdash; qubits on $k$-cells, stabilizers from boundary maps, logical operators from non-trivial homology classes &mdash; works for any cellulation of any manifold in any dimension. The distance question becomes a question about the <em>systole</em>: the shortest non-trivial cycle. This is the foundation for hyperbolic codes, higher-dimensional toric codes, and the broader family of <a href="https://errorcorrectionzoo.org/c/higher_dimensional_surface">homological codes</a>.</p>
+<p>The planar and rotated surface codes have different boundary conditions that change the homology (from $H_1 \cong \mathbb{F}_2^2$ to $H_1 \cong \mathbb{F}_2$), and the distance argument must account for paths that terminate at boundaries rather than wrapping around.</p>
+
+<h3>Further reading</h3>
+<ul>
+  <li><a href="https://arthurpesah.me/blog/2023-05-13-surface-code/">Arthur Pesah's interactive introduction to the surface code</a> &mdash; broader picture including planar/rotated variants, decoding, thresholds.</li>
+  <li><a href="https://arthurpesah.me/blog/2023-01-31-stabilizer-formalism-1/">Arthur Pesah's series on the stabilizer formalism</a> &mdash; algebraic foundations.</li>
+  <li><a href="https://math.uchicago.edu/~may/REU2024/REUPapers/Wang,Alice.pdf">Alice Wang's REU paper</a> &mdash; another rigorous treatment using the homological framework.</li>
+  <li><a href="http://www.nikobreu.website/files/PhDThesis.pdf">Nikolas Breuckmann's thesis, <em>Homological Quantum Codes Beyond the Toric Code</em></a> &mdash; homological codes on general manifolds and systolic geometry.</li>
+</ul>
+
+</article>
+
+<script>
+(function () {
+  'use strict';
+
+  // SM-2 spaced repetition
+  function getState(id) {
+    try { return JSON.parse(localStorage.getItem('sr:' + id)) || null; } catch(e) { return null; }
+  }
+  function saveState(id, s) {
+    try { localStorage.setItem('sr:' + id, JSON.stringify(s)); } catch(e) {}
+  }
+  // First-review intervals (days) by rating: No=1, Barely=2, Yes=4, Easily=7
+  const FIRST = { 1: 1, 2: 2, 3: 4, 4: 7 };
+
+  function schedule(state, q) {
+    const now = Date.now();
+    let { interval, ef, reps } = state || { interval: 0, ef: 2.5, reps: 0 };
+
+    if (q === 1) {
+      // No — reset completely
+      interval = 1;
+      reps = 0;
+      ef = Math.max(1.3, ef - 0.2);
+    } else {
+      // Adjust ease factor (SM-2 formula)
+      ef = Math.max(1.3, ef + 0.1 - (4 - q) * (0.08 + (4 - q) * 0.02));
+      if (reps === 0) {
+        // First time seeing this card: use fixed first-review intervals
+        interval = FIRST[q];
+      } else {
+        // Subsequent reviews: multiply previous interval by ef, then scale by quality
+        const base = Math.round(interval * ef);
+        if (q === 4) interval = Math.round(base * 1.3);       // Easily → extra bonus
+        else if (q === 2) interval = Math.max(2, Math.round(base * 0.6)); // Barely → shorter
+        else interval = base;                                   // Yes → normal
+      }
+      reps++;
+    }
+
+    return { interval, ef, reps, nextDue: now + interval * 86400000 };
+  }
+  function dueLabel(s) {
+    if (!s) return null;
+    const d = Math.round((s.nextDue - Date.now()) / 86400000);
+    if (d <= 0) return 'Due now';
+    return 'Due in ' + d + (d === 1 ? ' day' : ' days');
+  }
+
+  function initCard(card) {
+    const id       = card.dataset.id;
+    const question = card.querySelector('.prompt-question');
+    const answer   = card.querySelector('.prompt-answer');
+    const btnShow  = card.querySelector('.btn-show');
+    const ratingGrp= card.querySelector('.rating-group');
+    const status   = card.querySelector('.prompt-status');
+    const btnRates = card.querySelectorAll('.btn-rate');
+    let revealed   = false;
+
+    const st = getState(id);
+    if (st) { const lbl = dueLabel(st); if (lbl) { status.textContent = lbl; status.classList.add('visible'); } }
+
+    function reveal() {
+      revealed = true;
+      answer.classList.add('visible');
+      ratingGrp.classList.add('visible');
+      btnShow.textContent = 'Hide answer';
+      btnShow.classList.add('hide-btn');
+    }
+    function hide() {
+      revealed = false;
+      answer.classList.remove('visible');
+      ratingGrp.classList.remove('visible');
+      btnShow.textContent = 'Show answer';
+      btnShow.classList.remove('hide-btn');
+    }
+
+    btnShow.addEventListener('click', () => revealed ? hide() : reveal());
+    question.addEventListener('click', () => revealed ? hide() : reveal());
+
+    btnRates.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ns = schedule(getState(id), parseInt(btn.dataset.val, 10));
+        saveState(id, ns);
+        btnRates.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        const lbl = dueLabel(ns);
+        if (lbl) { status.textContent = lbl; status.classList.add('visible'); }
+        setTimeout(hide, 750);
+      });
+    });
+  }
+
+  function init() {
+    document.querySelectorAll('.prompt-card').forEach(initCard);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(init, 60));
+  } else {
+    setTimeout(init, 60);
+  }
+})();
+</script>
+</body>
+</html>
