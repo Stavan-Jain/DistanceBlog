@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 420" role="img" aria-labelledby="title desc">
+  <title id="title">Three edge-set examples on a 3 by 3 torus</title>
+  <desc id="desc">Left panel shows a single highlighted edge that is not a cycle. Middle panel shows a face boundary that is both a cycle and a boundary. Right panel shows a horizontal wraparound loop that is a cycle but not a boundary.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4b5563" />
+    </marker>
+  </defs>
+
+  <!-- Panel backgrounds -->
+  <g fill="#ffffff" stroke="#e5e7eb" stroke-width="1.4">
+    <rect x="20" y="28" width="310" height="360" rx="8" />
+    <rect x="355" y="28" width="310" height="360" rx="8" />
+    <rect x="690" y="28" width="310" height="360" rx="8" />
+  </g>
+
+  <!-- Panel titles -->
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#2f2f2f" text-anchor="middle">
+    <text x="175" y="60" font-size="23">Not a cycle</text>
+    <text x="510" y="56" font-size="19">A cycle that is</text>
+    <text x="510" y="80" font-size="19">a boundary</text>
+    <text x="845" y="56" font-size="19">A cycle, not</text>
+    <text x="845" y="80" font-size="19">a boundary</text>
+  </g>
+
+  <!-- Left panel lattice -->
+  <g stroke="#cfd4dc" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <line x1="85" y1="130" x2="165" y2="130" /><line x1="165" y1="130" x2="245" y2="130" />
+    <line x1="85" y1="200" x2="165" y2="200" /><line x1="165" y1="200" x2="245" y2="200" />
+    <line x1="85" y1="270" x2="165" y2="270" /><line x1="165" y1="270" x2="245" y2="270" />
+    <line x1="85" y1="130" x2="85" y2="200" /><line x1="85" y1="200" x2="85" y2="270" />
+    <line x1="165" y1="130" x2="165" y2="200" /><line x1="165" y1="200" x2="165" y2="270" />
+    <line x1="245" y1="130" x2="245" y2="200" /><line x1="245" y1="200" x2="245" y2="270" />
+    <!-- Periodic spill-over stubs -->
+    <line x1="85" y1="130" x2="63" y2="130" /><line x1="85" y1="200" x2="63" y2="200" /><line x1="85" y1="270" x2="63" y2="270" />
+    <line x1="245" y1="130" x2="267" y2="130" /><line x1="245" y1="200" x2="267" y2="200" /><line x1="245" y1="270" x2="267" y2="270" />
+    <line x1="85" y1="130" x2="85" y2="108" /><line x1="165" y1="130" x2="165" y2="108" /><line x1="245" y1="130" x2="245" y2="108" />
+    <line x1="85" y1="270" x2="85" y2="292" /><line x1="165" y1="270" x2="165" y2="292" /><line x1="245" y1="270" x2="245" y2="292" />
+  </g>
+  <g stroke="#7c3aed" stroke-width="6" stroke-linecap="round" fill="none">
+    <line x1="85" y1="270" x2="165" y2="270" />
+  </g>
+  <g fill="#7c3aed">
+    <circle cx="85" cy="270" r="6.3" />
+    <circle cx="165" cy="270" r="6.3" />
+  </g>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#374151">
+    <text x="106" y="255" font-size="17">H(0,0)</text>
+    <text x="60" y="294" font-size="14">(0,0)</text>
+    <text x="140" y="294" font-size="14">(1,0)</text>
+    <text x="44" y="228" font-size="14">degree 1</text>
+    <text x="167" y="228" font-size="14">degree 1</text>
+    <line x1="79" y1="232" x2="85" y2="262" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arrow)" />
+    <line x1="205" y1="232" x2="165" y2="262" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arrow)" />
+  </g>
+
+  <!-- Middle panel lattice -->
+  <g stroke="#cfd4dc" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <line x1="420" y1="130" x2="500" y2="130" /><line x1="500" y1="130" x2="580" y2="130" />
+    <line x1="420" y1="200" x2="500" y2="200" /><line x1="500" y1="200" x2="580" y2="200" />
+    <line x1="420" y1="270" x2="500" y2="270" /><line x1="500" y1="270" x2="580" y2="270" />
+    <line x1="420" y1="130" x2="420" y2="200" /><line x1="420" y1="200" x2="420" y2="270" />
+    <line x1="500" y1="130" x2="500" y2="200" /><line x1="500" y1="200" x2="500" y2="270" />
+    <line x1="580" y1="130" x2="580" y2="200" /><line x1="580" y1="200" x2="580" y2="270" />
+    <!-- Periodic spill-over stubs -->
+    <line x1="420" y1="130" x2="398" y2="130" /><line x1="420" y1="200" x2="398" y2="200" /><line x1="420" y1="270" x2="398" y2="270" />
+    <line x1="580" y1="130" x2="602" y2="130" /><line x1="580" y1="200" x2="602" y2="200" /><line x1="580" y1="270" x2="602" y2="270" />
+    <line x1="420" y1="130" x2="420" y2="108" /><line x1="500" y1="130" x2="500" y2="108" /><line x1="580" y1="130" x2="580" y2="108" />
+    <line x1="420" y1="270" x2="420" y2="292" /><line x1="500" y1="270" x2="500" y2="292" /><line x1="580" y1="270" x2="580" y2="292" />
+  </g>
+  <rect x="420" y="200" width="80" height="70" fill="#ccfbf1" opacity="0.78" />
+  <g stroke="#0f766e" stroke-width="6" stroke-linecap="round" fill="none">
+    <line x1="420" y1="270" x2="500" y2="270" />
+    <line x1="420" y1="200" x2="500" y2="200" />
+    <line x1="420" y1="200" x2="420" y2="270" />
+    <line x1="500" y1="200" x2="500" y2="270" />
+  </g>
+  <g fill="#1f2937">
+    <circle cx="420" cy="200" r="4.8" />
+    <circle cx="500" cy="200" r="4.8" />
+    <circle cx="420" cy="270" r="4.8" />
+    <circle cx="500" cy="270" r="4.8" />
+  </g>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#134e4a">
+    <text x="444" y="240" font-size="17">F(0,0)</text>
+    <text x="436" y="292" font-size="12">H(0,0)</text>
+    <text x="436" y="191" font-size="12">H(0,1)</text>
+    <text x="388" y="239" font-size="12">V(0,0)</text>
+    <text x="506" y="239" font-size="12">V(1,0)</text>
+    <text x="526" y="150" font-size="15">&#8706;2(F(0,0))</text>
+    <line x1="525" y1="154" x2="498" y2="198" stroke="#4b5563" stroke-width="1.6" marker-end="url(#arrow)" />
+  </g>
+  <!-- Right panel lattice -->
+  <g stroke="#cfd4dc" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <line x1="755" y1="130" x2="835" y2="130" /><line x1="835" y1="130" x2="915" y2="130" />
+    <line x1="755" y1="200" x2="835" y2="200" /><line x1="835" y1="200" x2="915" y2="200" />
+    <line x1="755" y1="270" x2="835" y2="270" /><line x1="835" y1="270" x2="915" y2="270" />
+    <line x1="755" y1="130" x2="755" y2="200" /><line x1="755" y1="200" x2="755" y2="270" />
+    <line x1="835" y1="130" x2="835" y2="200" /><line x1="835" y1="200" x2="835" y2="270" />
+    <line x1="915" y1="130" x2="915" y2="200" /><line x1="915" y1="200" x2="915" y2="270" />
+    <!-- Periodic spill-over stubs -->
+    <line x1="755" y1="130" x2="733" y2="130" /><line x1="755" y1="200" x2="733" y2="200" /><line x1="755" y1="270" x2="733" y2="270" />
+    <line x1="915" y1="130" x2="937" y2="130" /><line x1="915" y1="200" x2="937" y2="200" /><line x1="915" y1="270" x2="937" y2="270" />
+    <line x1="755" y1="130" x2="755" y2="108" /><line x1="835" y1="130" x2="835" y2="108" /><line x1="915" y1="130" x2="915" y2="108" />
+    <line x1="755" y1="270" x2="755" y2="292" /><line x1="835" y1="270" x2="835" y2="292" /><line x1="915" y1="270" x2="915" y2="292" />
+  </g>
+  <g stroke="#7c3aed" stroke-width="6" stroke-linecap="round" fill="none">
+    <line x1="755" y1="270" x2="835" y2="270" />
+    <line x1="835" y1="270" x2="915" y2="270" />
+    <!-- Highlighted periodic continuation stubs for c_h -->
+    <line x1="755" y1="270" x2="733" y2="270" />
+    <line x1="915" y1="270" x2="937" y2="270" />
+  </g>
+  <g fill="#1f2937">
+    <circle cx="755" cy="270" r="5.2" />
+    <circle cx="835" cy="270" r="5.2" />
+    <circle cx="915" cy="270" r="5.2" />
+  </g>
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#374151">
+    <text x="831" y="252" font-size="20">c<tspan baseline-shift="sub" font-size="14">h</tspan></text>
+  </g>
+</svg>

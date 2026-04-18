@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
+  <title id="title">Horizontal loop crossing vertical slices on a 3x3 toric lattice</title>
+  <desc id="desc">A 3 by 3 toric lattice with horizontal loop c_h highlighted and three vertical slice columns S_0 through S_2 shaded; each slice is crossed once by the loop.</desc>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4b5563" />
+    </marker>
+  </defs>
+
+  <!-- Slice bands S0..S2 -->
+  <g>
+    <rect x="150" y="110" width="150" height="220" fill="#dbeafe" opacity="0.35" />
+    <rect x="300" y="110" width="150" height="220" fill="#dcfce7" opacity="0.32" />
+    <rect x="450" y="110" width="150" height="220" fill="#fef3c7" opacity="0.35" />
+  </g>
+  <g stroke="#b8c1ce" stroke-width="1.4" fill="none">
+    <rect x="150" y="110" width="150" height="220" />
+    <rect x="300" y="110" width="150" height="220" />
+    <rect x="450" y="110" width="150" height="220" />
+  </g>
+
+  <!-- Slice labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#374151" text-anchor="middle">
+    <text x="225" y="95">S<tspan baseline-shift="sub" font-size="15">0</tspan></text>
+    <text x="375" y="95">S<tspan baseline-shift="sub" font-size="15">1</tspan></text>
+    <text x="525" y="95">S<tspan baseline-shift="sub" font-size="15">2</tspan></text>
+  </g>
+
+  <!-- Background lattice -->
+  <g stroke="#cdd3dc" stroke-width="2.6" stroke-linecap="round" fill="none">
+    <!-- Horizontal edges -->
+    <line x1="150" y1="120" x2="300" y2="120" /><line x1="300" y1="120" x2="450" y2="120" /><line x1="450" y1="120" x2="600" y2="120" />
+    <line x1="150" y1="190" x2="300" y2="190" /><line x1="300" y1="190" x2="450" y2="190" /><line x1="450" y1="190" x2="600" y2="190" />
+    <line x1="150" y1="260" x2="300" y2="260" /><line x1="300" y1="260" x2="450" y2="260" /><line x1="450" y1="260" x2="600" y2="260" />
+    <line x1="150" y1="330" x2="300" y2="330" /><line x1="300" y1="330" x2="450" y2="330" /><line x1="450" y1="330" x2="600" y2="330" />
+
+    <!-- Vertical edges -->
+    <line x1="150" y1="120" x2="150" y2="190" /><line x1="150" y1="190" x2="150" y2="260" /><line x1="150" y1="260" x2="150" y2="330" />
+    <line x1="300" y1="120" x2="300" y2="190" /><line x1="300" y1="190" x2="300" y2="260" /><line x1="300" y1="260" x2="300" y2="330" />
+    <line x1="450" y1="120" x2="450" y2="190" /><line x1="450" y1="190" x2="450" y2="260" /><line x1="450" y1="260" x2="450" y2="330" />
+    <line x1="600" y1="120" x2="600" y2="190" /><line x1="600" y1="190" x2="600" y2="260" /><line x1="600" y1="260" x2="600" y2="330" />
+
+    <!-- Periodic boundary spill-over stubs -->
+    <line x1="150" y1="120" x2="126" y2="120" /><line x1="150" y1="190" x2="126" y2="190" /><line x1="150" y1="260" x2="126" y2="260" /><line x1="150" y1="330" x2="126" y2="330" />
+    <line x1="600" y1="120" x2="624" y2="120" /><line x1="600" y1="190" x2="624" y2="190" /><line x1="600" y1="260" x2="624" y2="260" /><line x1="600" y1="330" x2="624" y2="330" />
+    <line x1="150" y1="120" x2="150" y2="96" /><line x1="300" y1="120" x2="300" y2="96" /><line x1="450" y1="120" x2="450" y2="96" /><line x1="600" y1="120" x2="600" y2="96" />
+    <line x1="150" y1="330" x2="150" y2="354" /><line x1="300" y1="330" x2="300" y2="354" /><line x1="450" y1="330" x2="450" y2="354" /><line x1="600" y1="330" x2="600" y2="354" />
+  </g>
+
+  <!-- Highlighted horizontal loop c_h -->
+  <g stroke="#1f2937" stroke-width="6" stroke-linecap="round" fill="none">
+    <line x1="150" y1="330" x2="300" y2="330" />
+    <line x1="300" y1="330" x2="450" y2="330" />
+    <line x1="450" y1="330" x2="600" y2="330" />
+  </g>
+
+  <!-- Crossing markers and odd labels -->
+  <g fill="#111827">
+    <circle cx="225" cy="330" r="6" />
+    <circle cx="375" cy="330" r="6" />
+    <circle cx="525" cy="330" r="6" />
+  </g>
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#374151" text-anchor="middle">
+    <text x="225" y="312">h = 1</text>
+    <text x="375" y="312">h = 1</text>
+    <text x="525" y="312">h = 1</text>
+  </g>
+
+  <!-- c_h label -->
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#374151">
+    <text x="650" y="334" font-size="24">c<tspan baseline-shift="sub" font-size="16">h</tspan></text>
+    <line x1="642" y1="330" x2="606" y2="330" stroke="#4b5563" stroke-width="1.8" marker-end="url(#arrow)" />
+  </g>
+</svg>

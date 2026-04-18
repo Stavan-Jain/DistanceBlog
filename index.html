@@ -221,7 +221,9 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 <article>
 
 <h1>A Topological Proof That the Surface Code Has Distance $L$</h1>
-<p class="byline">A mnemonic medium essay &mdash; prompts after each section help you retain the key ideas</p>
+<figure style="margin: 0.85rem 0 1.35rem;">
+  <img src="lattice-hero.svg" alt="" style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
+</figure>
 
 <!-- INTRO -->
 <h2>From intuition to proof</h2>
@@ -254,23 +256,38 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 <p>We work with the surface code on a torus (periodic boundary conditions), sometimes called the <em>toric code</em>. The lattice is an $L \times L$ square grid, with all arithmetic on coordinates taken modulo $L$.</p>
 <figure style="margin: 1.15rem 0 1.25rem;">
   <img src="toric-code-lattice-l4.svg" alt="Diagram of the 4 by 4 toric code lattice with edge qubits and highlighted X and Z stabilizers." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
-  <figcaption style="font-family: var(--sans); font-size: 0.86rem; color: var(--muted); margin-top: 0.5rem;">The 4&times;4 toric code lattice. Qubits sit on edges; X-type stabilizers act on the four edges of a face (red); Z-type stabilizers act on the four edges incident to a vertex (blue).</figcaption>
+  <figcaption style="font-family: var(--sans); font-size: 0.86rem; color: var(--muted); margin-top: 0.5rem;">The 4&times;4 toric code lattice. Qubits sit on edges; X-type stabilizers act on the four edges of a face (violet); Z-type stabilizers act on the four edges incident to a vertex (teal).</figcaption>
 </figure>
 <ul>
   <li><strong>Vertices:</strong> $(x, y)$ for $x, y \in \{0, 1, \ldots, L-1\}$. There are $L^2$ vertices.</li>
   <li><strong>Edges:</strong> Two types.
     <ul>
-      <li><em>Horizontal edges:</em> $H(x, y)$ connects $(x, y)$ to $(x+1, y)$. There are $L^2$ horizontal edges.</li>
-      <li><em>Vertical edges:</em> $V(x, y)$ connects $(x, y)$ to $(x, y+1)$. There are $L^2$ vertical edges.</li>
+      <li><em>Horizontal edges:</em> $H(x, y)$ connects $(x, y)$ to $(x+1, y)$. There are $L^2$ horizontal edges.
+        <figure style="margin: 0.8rem 0 0.95rem;">
+          <img src="lattice-horizontal-edge.svg" alt="Horizontal edge H(1,1) connecting vertices (1,1) and (2,1)." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
+          <figcaption style="font-family: var(--sans); font-size: 0.84rem; color: var(--muted); margin-top: 0.45rem;">Horizontal edge example: $H(1,1)$ connects $(1,1)$ to $(2,1)$.</figcaption>
+        </figure>
+      </li>
+      <li><em>Vertical edges:</em> $V(x, y)$ connects $(x, y)$ to $(x, y+1)$. There are $L^2$ vertical edges.
+        <figure style="margin: 0.8rem 0 0.95rem;">
+          <img src="lattice-vertical-edge.svg" alt="Vertical edge V(1,1) connecting vertices (1,1) and (1,2)." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
+          <figcaption style="font-family: var(--sans); font-size: 0.84rem; color: var(--muted); margin-top: 0.45rem;">Vertical edge example: $V(1,1)$ connects $(1,1)$ to $(1,2)$.</figcaption>
+        </figure>
+      </li>
       <li>In total, $n = 2L^2$ edges.</li>
     </ul>
   </li>
-  <li><strong>Faces:</strong> $F(x, y)$ is the unit square with corners $(x,y)$, $(x+1,y)$, $(x,y+1)$, $(x+1,y+1)$. There are $L^2$ faces, with boundary edges Bottom $H(x,y)$, Top $H(x,y+1)$, Left $V(x,y)$, Right $V(x+1,y)$.</li>
+  <li><strong>Faces:</strong> $F(x, y)$ is the unit square with corners $(x,y)$, $(x+1,y)$, $(x,y+1)$, $(x+1,y+1)$. There are $L^2$ faces, with boundary edges Bottom $H(x,y)$, Top $H(x,y+1)$, Left $V(x,y)$, Right $V(x+1,y)$.
+    <figure style="margin: 0.8rem 0 0.95rem;">
+      <img src="lattice-face-notation.svg" alt="Face F(1,1) with highlighted boundary edges H(1,1), H(1,2), V(1,1), and V(2,1)." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
+      <figcaption style="font-family: var(--sans); font-size: 0.84rem; color: var(--muted); margin-top: 0.45rem;">Face example: $F(1,1)$ with boundary edges $H(1,1)$, $H(1,2)$, $V(1,1)$, and $V(2,1)$.</figcaption>
+    </figure>
+  </li>
 </ul>
 <p>Each edge borders exactly two faces. Specifically:</p>
 <ul>
-  <li>$H(x,y)$ borders $F(x,y)$ (as its bottom) and $F(x,y-1)$ (as its top).</li>
-  <li>$V(x,y)$ borders $F(x,y)$ (as its left) and $F(x-1,y)$ (as its right).</li>
+  <li>$H(x,y)$ borders faces $F(x,y)$ and $F(x,y-1)$. Equivalently, it is the bottom edge of $F(x,y)$ and the top edge of $F(x,y-1)$.</li>
+  <li>$V(x,y)$ borders faces $F(x,y)$ and $F(x-1,y)$. Equivalently, it is the left edge of $F(x,y)$ and the right edge of $F(x-1,y)$.</li>
 </ul>
 <p>Each vertex is incident to exactly four edges: $H(x-1,y)$, $H(x,y)$, $V(x,y-1)$, $V(x,y)$.</p>
 <p>The toric code places one qubit on each of the $2L^2$ edges and defines:</p>
@@ -447,7 +464,11 @@ The edge $V(1,0)$ appears twice and cancels, leaving six edges forming the outer
 <p><strong>Example.</strong> We illustrate these definitions on a 3&times;3 torus.</p>
 <p><em>An edge-set that is not a cycle:</em> Take the single edge $H(0,0)$. The vertices $(0,0)$ and $(1,0)$ each have degree 1 in this edge-set &mdash; odd &mdash; so the cycle condition fails. This edge-set is not in $Z_1$.</p>
 <p><em>A cycle that is a boundary:</em> Take the four edges forming the perimeter of face $F(0,0)$: $\{H(0,0), H(0,1), V(0,0), V(1,0)\}$. Every vertex has degree 0 or 2 (the four corners each have degree 2), so this is a cycle. It equals $\partial_2(F(0,0))$, so it is also a boundary: it lies in $B_1$.</p>
-<p><em>A cycle that is not a boundary:</em> Take the horizontal loop $c_h = \{H(0,0), H(1,0), H(2,0)\}$, the full row of horizontal edges at $y=0$. Every vertex on row $y=0$ has degree 2, and all other vertices have degree 0, so $c_h \in Z_1$. But $c_h \notin B_1$: assuming $c_h = \partial_2(\mathcal{F})$ leads to a contradiction via the periodic boundary conditions. This is an example of a non-trivial element of $H_1$.</p>
+<p><em>A cycle that is not a boundary:</em> Take the horizontal loop $c_h = \{H(0,0), H(1,0), H(2,0)\}$, the full row of horizontal edges at $y=0$. Every vertex on row $y=0$ has degree 2, and all other vertices have degree 0, so $c_h \in Z_1$. But $c_h \notin B_1$.</p>
+<figure style="margin: 1.05rem 0 1.15rem;">
+  <img src="section3-cycle-examples.svg" alt="Three lattice fragments showing a non-cycle, a cycle that is a boundary, and a cycle that is not a boundary." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
+  <figcaption style="font-family: var(--sans); font-size: 0.86rem; color: var(--muted); margin-top: 0.5rem;">Three edge-sets on a 3&times;3 torus. Left: a single edge is not a cycle (vertices have odd degree). Middle: the boundary of a face is both a cycle and a boundary. Right: the horizontal loop $c_h$ is a cycle but not a boundary &mdash; it wraps around the torus without enclosing any set of faces.</figcaption>
+</figure>
 
 <div class="block">
   <div class="block-label">Lemma 3.1</div>
@@ -748,7 +769,6 @@ i.e., the minimum weight of a non-trivial cycle (one that is not a boundary).
 <p><em>The horizontal loop $c_h = \{H(0,0), H(1,0), H(2,0)\}$:</em> At each $x$-coordinate $x_0 \in \{0,1,2\}$, there is exactly one horizontal edge of $c_h$ &mdash; namely $H(x_0, 0)$. So $h_{x_0}(c_h) = 1$ for all $x_0$, giving $h(c_h) = 1$. Since $c_h$ contains no vertical edges, $v(c_h) = 0$.</p>
 <p><em>A squiggly homologous cycle $c' = c_h + \partial_2(F(0,0))$:</em> Adding the boundary of $F(0,0)$ to $c_h$ gives $c' = \{H(0,1), H(1,0), H(2,0), V(0,0), V(1,0)\}$ &mdash; a cycle with a detour around the face $F(0,0)$. Despite its different shape, $h(c') = 1$ and $v(c') = 0$: the same as $c_h$. This illustrates that $h$ and $v$ depend only on the homology class, not the specific representative.</p>
 <p><em>The boundary $\partial_2(F(0,0)) = \{H(0,0), H(0,1), V(0,0), V(1,0)\}$:</em> At $x_0 = 0$, there are two horizontal edges: $H(0,0)$ and $H(0,1)$. Two is even, so $h_0(\partial_2(F(0,0))) = 0$. At all other $x$-coordinates, there are no horizontal edges. So $h(\partial_2(F(0,0))) = 0$, and similarly $v(\partial_2(F(0,0))) = 0$, consistent with Lemma 6.3.</p>
-
 <div class="block">
   <div class="block-label">Lemma 6.1</div>
   The maps $h_{x_0}, v_{y_0}: C_1 \to \mathbb{F}_2$ are linear.
