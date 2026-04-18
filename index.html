@@ -245,9 +245,9 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
 <h2>What you'll need</h2>
 <ul>
-  <li>Familiarity with the basic structure of the surface code (lattice, qubits on edges, stabilizers, logical operators). If you need a refresher, Arthur Pesah's <a href="https://arthurpesah.me/blog/2023-05-13-surface-code/">interactive introduction to the surface code</a> is a great starting point.</li>
+  <li>Familiarity with the structure of the surface code (lattice, qubits on edges, stabilizers, logical operators). If you need a refresher, Arthur Pesah's <a href="https://arthurpesah.me/blog/2023-05-13-surface-code/">interactive introduction to the surface code</a> is a great starting point.</li>
   <li>Familiarity with the stabilizer formalism (stabilizer groups, codespace, logical operators, distance). For a refresher, Arthur Pesah's <a href="https://arthurpesah.me/blog/2023-01-31-stabilizer-formalism-1/">series on the stabilizer formalism</a> is excellent.</li>
-  <li>Basic linear algebra over $\mathbb{F}_2$ (vector spaces, kernels, rank-nullity).</li>
+  <li>Linear algebra over $\mathbb{F}_2$ (vector spaces, kernels, rank-nullity).</li>
   <li>Familiarity with basic group theory is helpful, but not strictly required.</li>
 </ul>
 <p>No prior knowledge of algebraic topology is required &mdash; we build up everything we need from scratch.</p>
@@ -259,7 +259,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
 <!-- SECTION 1 -->
 <h2>1. The Lattice</h2>
-<p>We work with the surface code on a torus (periodic boundary conditions), sometimes called the <em>toric code</em>. The lattice is an $L \times L$ square grid, with all arithmetic on coordinates taken modulo $L$.</p>
+<p>We work with the surface code on a torus, sometimes called the <em>toric code</em>. The lattice is an $L \times L$ square grid, with all arithmetic on coordinates taken modulo $L$.</p>
 <figure style="margin: 1.15rem 0 1.25rem;">
   <img src="toric-code-lattice-l4.svg" alt="Diagram of the 4 by 4 toric code lattice with edge qubits and highlighted X and Z stabilizers." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
   <figcaption style="font-family: var(--sans); font-size: 0.86rem; color: var(--muted); margin-top: 0.5rem;">The 4&times;4 toric code lattice. Qubits sit on edges; X-type stabilizers act on the four edges of a face (violet); Z-type stabilizers act on the four edges incident to a vertex (teal).</figcaption>
