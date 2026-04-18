@@ -1,40 +1,23 @@
 # A Topological Proof That the Surface Code Has Distance L
 
-## Why this post?
+## From intuition to proof
 
-If you've read an introduction to the toric code — say, [Arthur Pesah's excellent interactive post](https://arthurpesah.me/blog/2023-05-13-surface-code/) — you've probably seen the claim that the toric code on an $L \times L$ lattice has distance $L$. And you probably feel like you understand why: the shortest non-contractible loop on the torus has $L$ edges, so the lightest non-trivial logical operator has weight $L$.
-
-It's worth examining this argument carefully, because one of its steps is doing more work than it might seem.
+If you've read an introduction to the toric code — say, [Arthur Pesah's excellent interactive post](https://arthurpesah.me/blog/2023-05-13-surface-code/) — you've probably seen the claim that the toric code on an $L \times L$ lattice has distance $L$. It's worth examining the standard justification for this claim carefully, because one of its steps is doing more work than it might seem.
 
 ## The standard argument and its gap
 
+Recall that the *distance* of a quantum error-correcting code is the minimum weight of any non-trivial logical operator. To show the toric code has distance $L$, we need to verify two things:
+
+1. There exists a non-trivial logical operator of weight $L$ (so $d \leq L$).
+2. Every non-trivial logical operator has weight at least $L$ (so $d \geq L$).
+
 The argument, as typically presented, has three steps:
 
-1. **Logical operators are loops.** An X-type operator on some edge-set $c$ commutes with all Z-stabilizers if and only if $c$ forms a cycle (every vertex has even degree). It acts trivially on the codespace (i.e., it is a stabilizer) if and only if $c$ is a boundary — the perimeter of some set of faces. So non-trivial logical operators correspond to cycles that are not boundaries: non-contractible loops.
+1. **Logical operators are loops on the lattice.**
+2. **There exist non-contractible loops on the lattice of length $L$, giving non-trivial logical operators of weight $L$.**
+3. **No non-contractible loop on the lattice has length less than $L$, so no non-trivial logical operator has weight less than $L$.**
 
-2. **There exist non-contractible loops of length $L$.** A horizontal row of $L$ edges wrapping around the torus is such a loop. So the distance is at most $L$.
-
-3. **No non-contractible loop has length less than $L$.** A non-contractible loop must "wrap all the way around" the torus, which requires at least $L$ edges. Therefore the distance is at least $L$.
-
-Steps 1 and 2 are solid. Step 1 is a consequence of the stabilizer formalism and the structure of the toric code, and Arthur's post develops it convincingly. Step 2 is proved by exhibiting a specific loop — nothing more is needed.
-
-Step 3 is the problem. It feels obvious — of course you need at least $L$ edges to get around an $L \times L$ torus. But "wrapping all the way around" is doing a lot of informal work here. A non-contractible loop doesn't have to look like a straight horizontal line. It could zig-zag, include vertical segments, wander wildly across the lattice. Why can't some clever squiggly path wrap around the torus using fewer than $L$ edges? The geometric intuition is compelling, but it isn't a proof.
-
-To make it a proof, we need to answer two questions precisely:
-
-- **What exactly distinguishes a non-contractible loop from a contractible one?** We need a formal invariant — a quantity we can compute from a cycle that is zero for all boundaries and nonzero for non-contractible loops.
-
-- **Why does this invariant force a minimum weight?** We need to show that any cycle with a nonzero invariant must use at least $L$ edges.
-
-## The topological approach
-
-This is where the language of homology enters. The key idea is to define two $\mathbb{F}_2$-valued invariants, $h(c)$ and $v(c)$, that detect whether a cycle "wraps around" the torus horizontally or vertically. These invariants have three crucial properties:
-
-- They are **well-defined on homology classes**: adding a boundary to a cycle doesn't change its $h$ or $v$ values. So they genuinely distinguish non-trivial cycles from boundaries.
-- They **completely classify** the four cosets of the first homology group $H_1$. A cycle is a boundary if and only if $h = v = 0$.
-- They **force a minimum weight**. If $h(c) = 1$, then $c$ must contain at least one horizontal edge at each of $L$ distinct $x$-coordinates — giving at least $L$ edges. Similarly for $v(c) = 1$.
-
-Together, these three properties turn the informal "wrapping requires $L$ steps" into a rigorous proof.
+Steps 1 and 2 are straightforward: Step 1 follows directly from the stabilizer formalism, and Step 2 is proved by exhibiting a specific loop. Step 3 is more subtle: the claim that no non-contractible loop has length less than $L$ is geometrically intuitive but requires a careful argument. It feels obvious — of course you need at least $L$ edges to get around an $L \times L$ torus. But "wrapping all the way around" is doing a lot of informal work here. A non-contractible loop doesn't have to look like a straight horizontal line — it could zig-zag, include vertical segments, wander wildly across the lattice. Why can't some clever squiggly path wrap around the torus using fewer than $L$ edges? The geometric intuition is compelling, but it isn't a proof. The language of homology gives us the tools to make it one: it classifies loops by how they wrap around the torus, turning a geometric question into a linear algebra problem.
 
 ## What you'll need
 
@@ -78,19 +61,14 @@ The toric code places one qubit on each of the $2L^2$ edges, and defines two typ
 
 Our goal is to reason algebraically about subsets of edges — which ones form closed loops, which ones are the perimeter of a set of faces, and how to tell the difference. To do this, we represent edge-sets (and vertex-sets, and face-sets) as vectors over $\mathbb{F}_2$, and the geometric notion of "taking the boundary" becomes a linear map. This lets us use linear algebra to study the topology of the torus.
 
-We define vector spaces over the field $\mathbb{F}_2 = \{0, 1\}$ (arithmetic mod 2).
+The lattice has three kinds of objects, which we organize by dimension: vertices (0-dimensional), edges (1-dimensional), and faces (2-dimensional). We call these *0-cells*, *1-cells*, and *2-cells* respectively.
 
-**Definition ($k$-cells).** The *$k$-cells* of the lattice are:
-- 0-cells: vertices
-- 1-cells: edges
-- 2-cells: faces
+To reason about them algebraically, we represent subsets of each as vectors over $\mathbb{F}_2 = \{0, 1\}$ (arithmetic mod 2). A *$k$-chain* is a subset of $k$-cells, where addition corresponds to symmetric difference. The space of $k$-chains is:
+- $C_0 = \mathbb{F}_2^{L^2}$: subsets of vertices.
+- $C_1 = \mathbb{F}_2^{2L^2}$: subsets of edges.
+- $C_2 = \mathbb{F}_2^{L^2}$: subsets of faces.
 
-**Definition (Chains).** A *$k$-chain* is a formal $\mathbb{F}_2$-linear combination of $k$-cells. Equivalently, it is a subset of $k$-cells (where addition corresponds to symmetric difference). The space of $k$-chains is:
-- $C_0 = \mathbb{F}_2^{L^2}$: the space of 0-chains (subsets of vertices).
-- $C_1 = \mathbb{F}_2^{2L^2}$: the space of 1-chains (subsets of edges).
-- $C_2 = \mathbb{F}_2^{L^2}$: the space of 2-chains (subsets of faces).
-
-Concretely, a 1-chain $c \in C_1$ is identified with the subset of edges $\{e : c_e = 1\}$. The *weight* of $c$, denoted $|c|$, is the number of edges in this subset (i.e., the Hamming weight of the vector). Addition in $C_1$ corresponds to symmetric difference of edge sets.
+The *weight* of a 1-chain $c \in C_1$, denoted $|c|$, is the number of edges it contains.
 
 **Definition (Boundary maps).** We define two linear maps:
 
@@ -110,6 +88,18 @@ sends a single edge to the sum of its two endpoints:
 
 and extends linearly. For a subset of edges $E$, vertex $v$ is in $\partial_1(E)$ if and only if an odd number of edges in $E$ are incident to $v$.
 
+**Example.** Let's compute some concrete boundary maps on a 3×3 torus.
+
+First, $\partial_1$ applied to a single edge: $\partial_1(H(0,0)) = (0,0) + (1,0)$. The two endpoints are the only vertices in the boundary.
+
+Next, $\partial_2$ applied to a single face $F(0,0)$:
+$$\partial_2(F(0,0)) = H(0,0) + H(0,1) + V(0,0) + V(1,0)$$
+This is the set of four edges forming the perimeter of the face.
+
+Now consider $\partial_2$ applied to two adjacent faces $F(0,0)$ and $F(1,0)$ (side by side horizontally). Their shared boundary edge is $V(1,0)$. Over $\mathbb{F}_2$:
+$$\partial_2(F(0,0)) + \partial_2(F(1,0)) = H(0,0) + H(0,1) + V(0,0) + V(1,0) + H(1,0) + H(1,1) + V(1,0) + V(2,0)$$
+The edge $V(1,0)$ appears twice and cancels, leaving six edges forming the outer perimeter of the two-face rectangle. This illustrates the general principle: shared (interior) edges always cancel, so $\partial_2(\mathcal{F})$ is the outer boundary of $\mathcal{F}$.
+
 **Lemma 2.1.** $\partial_1 \circ \partial_2 = 0$.
 
 *Proof.* It suffices to check on a single face $F(x,y)$:
@@ -128,6 +118,14 @@ With the boundary maps in hand, we can now name the two kinds of edge-sets that 
 - The space of *1-cycles* is $Z_1 = \ker(\partial_1) \subseteq C_1$: the set of edge-subsets such that every vertex is incident to an even number of edges in the subset.
 - The space of *1-boundaries* is $B_1 = \operatorname{im}(\partial_2) \subseteq C_1$: the set of edge-subsets that arise as the boundary of some set of faces.
 
+**Example.** We illustrate these definitions on a 3×3 torus.
+
+*An edge-set that is not a cycle:* Take the single edge $H(0,0)$. The vertices $(0,0)$ and $(1,0)$ each have degree 1 in this edge-set — odd — so the cycle condition fails. This edge-set is not in $Z_1$.
+
+*A cycle that is a boundary:* Take the four edges forming the perimeter of face $F(0,0)$: $\{H(0,0), H(0,1), V(0,0), V(1,0)\}$. Every vertex has degree 0 or 2 (the four corners each have degree 2), so this is a cycle. It equals $\partial_2(F(0,0))$, so it is also a boundary: it lies in $B_1$.
+
+*A cycle that is not a boundary:* Take the horizontal loop $c_h = \{H(0,0), H(1,0), H(2,0)\}$, the full row of horizontal edges at $y=0$. Every vertex on row $y=0$ has degree 2, and all other vertices have degree 0, so $c_h \in Z_1$. But $c_h \notin B_1$: as we showed earlier, assuming $c_h = \partial_2(\mathcal{F})$ leads to a contradiction via the periodic boundary conditions. This is an example of a non-trivial element of $H_1$.
+
 **Lemma 3.1.** $B_1 \subseteq Z_1$. That is, every boundary is a cycle.
 
 *Proof.* This is an immediate consequence of Lemma 2.1. If $c = \partial_2(\mathcal{F})$ for some $\mathcal{F} \in C_2$, then $\partial_1(c) = \partial_1(\partial_2(\mathcal{F})) = 0$, so $c \in Z_1$. $\square$
@@ -144,7 +142,7 @@ Two cycles $c, c'$ are *homologous* (written $c \sim c'$) if $c + c' \in B_1$, i
 
 ## 4. Connection to the Toric Code
 
-We now connect the homological machinery of Sections 2--3 to the toric code defined in Section 1. The punchline: non-trivial X-type logicals correspond exactly to non-trivial elements of $H_1$ (cycles that aren't boundaries), and the same holds for Z-type logicals on the dual lattice. This means the distance question — "what is the lightest non-trivial logical?" — becomes a question about homology: "what is the lightest non-trivial cycle?"
+We now connect the homological machinery of Sections 2--3 to the toric code defined in Section 1. The punchline: non-trivial X-type logicals correspond exactly to non-trivial elements of $H_1$ (cycles that aren't boundaries), and the same holds for Z-type logicals on the dual lattice. This means the distance question — "what is the minimum-weight non-trivial logical?" — becomes a question about homology: "what is the minimum-weight non-trivial cycle?"
 
 ### 4.1 X-type logicals as non-trivial cycles
 
@@ -305,6 +303,14 @@ $$v_{y_0}(c) = \bigl|\{x : V(x, y_0) \in c\}\bigr| \mod 2$$
 the parity of vertical edges of $c$ at $y$-coordinate $y_0$.
 
 In what follows, we use the notation $[P]$ for the *Iverson bracket*: $[P] = 1$ if the statement $P$ is true, and $[P] = 0$ if it is false. For example, $[H(x_0, y) \in c]$ is 1 if the edge $H(x_0, y)$ belongs to $c$, and 0 otherwise.
+
+**Example.** We compute $h$ and $v$ for three cycles on a 3×3 torus.
+
+*The horizontal loop $c_h = \{H(0,0), H(1,0), H(2,0)\}$:* At each $x$-coordinate $x_0 \in \{0,1,2\}$, there is exactly one horizontal edge of $c_h$ — namely $H(x_0, 0)$. So $h_{x_0}(c_h) = 1$ for all $x_0$, giving $h(c_h) = 1$. Since $c_h$ contains no vertical edges, $v(c_h) = 0$.
+
+*A squiggly homologous cycle $c' = c_h + \partial_2(F(0,0))$:* Adding the boundary of $F(0,0)$ to $c_h$ gives $c' = \{H(0,1), H(1,0), H(2,0), V(0,0), V(1,0)\}$ — a cycle with a detour around the face $F(0,0)$. Despite its different shape, $h(c') = 1$ and $v(c') = 0$: the same as $c_h$. This illustrates that $h$ and $v$ depend only on the homology class, not the specific representative.
+
+*The boundary $\partial_2(F(0,0)) = \{H(0,0), H(0,1), V(0,0), V(1,0)\}$:* At $x_0 = 0$, there are two horizontal edges: $H(0,0)$ and $H(0,1)$. Two is even, so $h_0(\partial_2(F(0,0))) = 0$. At all other $x$-coordinates, there are no horizontal edges. So $h(\partial_2(F(0,0))) = 0$, and similarly $v(\partial_2(F(0,0))) = 0$, consistent with Lemma 6.3.
 
 **Lemma 6.1.** The maps $h_{x_0}, v_{y_0} : C_1 \to \mathbb{F}_2$ are linear.
 

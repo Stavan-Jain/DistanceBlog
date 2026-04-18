@@ -1,61 +1,54 @@
-# Orbit-based Mnemonic Medium Starter
+# A Topological Proof That the Surface Code Has Distance L
 
-This folder contains a minimal static page using Orbit's web component to embed spaced-repetition prompts in prose.
+This repository hosts a static, long-form essay that proves the toric/surface code distance is `L`, with embedded mnemonic review prompts after each major section.
 
-## What this gives you
+Live site: <https://stavan-jain.github.io/DistanceBlog/>
 
-- A local starter page at `index.html`
-- Embedded `<orbit-reviewarea>` blocks and `<orbit-prompt>` cards
-- A direct path to building a QCVC-style essay with memory prompts
+## What is in this repo
+
+- `index.html` - full article, styling, math rendering, and review-card logic
+- `distance_proof.md` - markdown source/proof draft used to build the article
+- `prompts.md` - section-by-section prompt source
+- `implementation_guide.md` - implementation notes and project constraints
+
+## Current implementation
+
+- **Single static page**: no build step required
+- **Math rendering**: KaTeX via CDN (`$...$` and `$$...$$`)
+- **Mnemonic prompts**: custom review areas with:
+  - show/hide answer
+  - self-rating buttons (`No`, `Barely`, `Yes`, `Easily`)
+  - local due-status labels
+- **Scheduling**: localStorage-backed SM-2-style spaced repetition (`sr:<prompt-id>`)
+
+## Article structure
+
+The page contains:
+
+- Introductory motivation + roadmap
+- Sections `1` through `8` covering lattice setup, chain complex, homology, invariants, and distance theorem
+- A review area after each major technical section
+- Conclusion + further reading
 
 ## Run locally
 
-From this directory:
+From the repository root:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then open:
+Open <http://localhost:8080>.
 
-`http://localhost:8080`
+## Deploy (GitHub Pages)
 
-## Authoring pattern
+This repo is configured for GitHub Pages from branch `main`, folder `/` (root).
 
-1. Write a short section of prose.
-2. Add a nearby `<orbit-reviewarea>` with 2-5 prompts.
-3. Keep each prompt focused on one retrievable fact or idea.
-4. Repeat section-by-section.
+- Site URL: <https://stavan-jain.github.io/DistanceBlog/>
+- If changes are not visible immediately, wait 1-2 minutes for Pages to rebuild.
 
-## Prompt-writing heuristics
+## Notes for editing
 
-- Prefer short questions with one clear target answer.
-- Avoid broad or essay-style prompts.
-- Use multiple prompts for the same concept from different angles.
-- Add notation prompts (e.g., "$|0\\rangle$") for technical fluency.
-
-## Useful references
-
-- Orbit repository: <https://github.com/andymatuschak/orbit>
-- Orbit docs: <https://docs.withorbit.com/>
-- QCVC inspiration: <https://quantum.country/qcvc>
-
-## Getting the surface-code visualization
-
-Use the hosted Quantum Code Visualizer:
-
-- Main page: <https://gui.quantumcodes.io/>
-- 2D surface/toric view: <https://gui.quantumcodes.io/2d>
-
-To embed it in your page, use:
-
-```html
-<iframe
-  src="https://gui.quantumcodes.io/2d"
-  title="Surface Code Visualizer"
-  style="width: 100%; height: 640px; border: 1px solid #8884"
-  loading="lazy"
-  referrerpolicy="no-referrer-when-downgrade"
-  allowfullscreen
-></iframe>
-```
+- Keep prompt IDs stable (`data-id` like `3.2`) so review history in localStorage is preserved.
+- Prefer semantic HTML lists (`ul/li`) over manual `<br>` formatting for consistent spacing.
+- If you change section text, update `prompts.md` only when prompt content should change too.
