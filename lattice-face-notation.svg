@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" role="img" aria-labelledby="title desc">
+  <title id="title">Face notation and boundary edges</title>
+  <desc id="desc">Face F(1,1) with boundary edges H(1,1), H(1,2), V(1,1), and V(2,1).</desc>
+
+  <!-- Face interior -->
+  <rect x="240" y="90" width="280" height="180" fill="#8b7bbf" opacity="0.12" />
+
+  <!-- Boundary edges -->
+  <g stroke="#7a6ba8" stroke-width="5" stroke-linecap="round" fill="none">
+    <line x1="240" y1="270" x2="520" y2="270" />
+    <line x1="240" y1="90" x2="520" y2="90" />
+    <line x1="240" y1="90" x2="240" y2="270" />
+    <line x1="520" y1="90" x2="520" y2="270" />
+  </g>
+
+  <!-- Corner vertices -->
+  <g fill="#111827">
+    <circle cx="240" cy="90" r="5.2" />
+    <circle cx="520" cy="90" r="5.2" />
+    <circle cx="240" cy="270" r="5.2" />
+    <circle cx="520" cy="270" r="5.2" />
+  </g>
+
+  <!-- Vertex coordinate labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#374151">
+    <text x="201" y="82">(1,2)</text>
+    <text x="526" y="82">(2,2)</text>
+    <text x="201" y="292">(1,1)</text>
+    <text x="526" y="292">(2,1)</text>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#5f4f8e">
+    <text x="356" y="187" font-size="23">F(1,1)</text>
+    <text x="352" y="76" font-size="17">H(1,2)</text>
+    <text x="352" y="296" font-size="17">H(1,1)</text>
+    <text x="170" y="186" font-size="17">V(1,1)</text>
+    <text x="538" y="186" font-size="17">V(2,1)</text>
+  </g>
+</svg>

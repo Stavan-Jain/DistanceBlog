@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-label="Torus illustration">
+  <defs>
+    <radialGradient id="torusFill" cx="50%" cy="43%" r="74%">
+      <stop offset="0%" stop-color="#f9f8ff" />
+      <stop offset="100%" stop-color="#e7e2fa" />
+    </radialGradient>
+    <mask id="ringMask">
+      <rect x="0" y="0" width="980" height="360" fill="#000" />
+      <ellipse cx="490" cy="190" rx="300" ry="122" fill="#fff" />
+      <ellipse cx="490" cy="190" rx="118" ry="50" fill="#000" />
+    </mask>
+  </defs>
+
+  <!-- Torus ring -->
+  <ellipse cx="490" cy="190" rx="300" ry="122" fill="url(#torusFill)" stroke="#c9c2ea" stroke-width="2.6" />
+  <!-- Inner hole -->
+  <ellipse cx="490" cy="190" rx="118" ry="50" fill="#ffffff" stroke="#d7d1f0" stroke-width="2.1" />
+
+  <!-- Wireframe curves clipped to ring -->
+  <g mask="url(#ringMask)" fill="none" stroke-linecap="round">
+    <!-- Around-hole circles -->
+    <ellipse cx="490" cy="190" rx="280" ry="112" stroke="#d7d2ef" stroke-width="1.6" />
+    <ellipse cx="490" cy="190" rx="244" ry="97" stroke="#d7d2ef" stroke-width="1.4" />
+    <ellipse cx="490" cy="190" rx="208" ry="83" stroke="#d7d2ef" stroke-width="1.2" />
+
+    <!-- Tube-direction curves -->
+    <ellipse cx="490" cy="190" rx="56" ry="122" stroke="#c8c1e9" stroke-width="1.3" />
+    <ellipse cx="490" cy="190" rx="116" ry="122" stroke="#c8c1e9" stroke-width="1.3" />
+    <ellipse cx="490" cy="190" rx="176" ry="122" stroke="#c8c1e9" stroke-width="1.3" />
+    <ellipse cx="490" cy="190" rx="236" ry="122" stroke="#c8c1e9" stroke-width="1.3" />
+  </g>
+
+  <!-- Foreground emphasis -->
+  <path d="M190,190 C190,122 324,68 490,68 C656,68 790,122 790,190" fill="none" stroke="#b4abd9" stroke-width="2.1" />
+  <path d="M790,190 C790,258 656,312 490,312 C324,312 190,258 190,190" fill="none" stroke="#d9d4f1" stroke-width="2.1" />
+</svg>

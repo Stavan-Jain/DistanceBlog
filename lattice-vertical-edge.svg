@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" role="img" aria-labelledby="title desc">
+  <title id="title">Vertical edge notation</title>
+  <desc id="desc">Vertical edge V(1,1) connecting vertices (1,1) and (1,2).</desc>
+
+  <g stroke="#cfd4dc" stroke-width="2.6" stroke-linecap="round" fill="none">
+    <line x1="320" y1="200" x2="320" y2="70" />
+  </g>
+
+  <g fill="#111827">
+    <circle cx="320" cy="200" r="5.2" />
+    <circle cx="320" cy="70" r="5.2" />
+  </g>
+
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#374151">
+    <text x="342" y="139" font-size="22">V(1,1)</text>
+    <text x="286" y="229" font-size="17">(1,1)</text>
+    <text x="286" y="57" font-size="17">(1,2)</text>
+  </g>
+</svg>

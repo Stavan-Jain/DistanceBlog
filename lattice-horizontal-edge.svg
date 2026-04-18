@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" role="img" aria-labelledby="title desc">
+  <title id="title">Horizontal edge notation</title>
+  <desc id="desc">Horizontal edge H(1,1) connecting vertices (1,1) and (2,1).</desc>
+
+  <g stroke="#cfd4dc" stroke-width="2.6" stroke-linecap="round" fill="none">
+    <line x1="170" y1="140" x2="590" y2="140" />
+  </g>
+
+  <g fill="#111827">
+    <circle cx="170" cy="140" r="5.2" />
+    <circle cx="590" cy="140" r="5.2" />
+  </g>
+
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#374151">
+    <text x="336" y="116" font-size="22">H(1,1)</text>
+    <text x="128" y="172" font-size="17">(1,1)</text>
+    <text x="550" y="172" font-size="17">(2,1)</text>
+  </g>
+</svg>

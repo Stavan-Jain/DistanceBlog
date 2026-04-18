@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" role="img" aria-labelledby="title desc">
+  <title id="title">L=4 toric code lattice</title>
+  <desc id="desc">A 4 by 4 toric code lattice with highlighted X-type and Z-type stabilizer supports and periodic boundary spill-out edges.</desc>
+
+  <!-- Highlighted X-type plaquette face -->
+  <rect x="120" y="80" width="140" height="110" fill="#dc2626" opacity="0.14" stroke="#b91c1c" stroke-width="2.2" />
+
+  <!-- Lattice edges -->
+  <g stroke="#9ca3af" stroke-width="3" stroke-linecap="round">
+    <!-- Horizontal edges -->
+    <line x1="120" y1="80" x2="260" y2="80" />
+    <line x1="260" y1="80" x2="400" y2="80" />
+    <line x1="400" y1="80" x2="540" y2="80" />
+    <line x1="120" y1="190" x2="260" y2="190" />
+    <line x1="260" y1="190" x2="400" y2="190" />
+    <line x1="400" y1="190" x2="540" y2="190" />
+    <line x1="120" y1="300" x2="260" y2="300" />
+    <line x1="260" y1="300" x2="400" y2="300" />
+    <line x1="400" y1="300" x2="540" y2="300" />
+    <line x1="120" y1="410" x2="260" y2="410" />
+    <line x1="260" y1="410" x2="400" y2="410" />
+    <line x1="400" y1="410" x2="540" y2="410" />
+
+    <!-- Vertical edges -->
+    <line x1="120" y1="80" x2="120" y2="190" />
+    <line x1="120" y1="190" x2="120" y2="300" />
+    <line x1="120" y1="300" x2="120" y2="410" />
+    <line x1="260" y1="80" x2="260" y2="190" />
+    <line x1="260" y1="190" x2="260" y2="300" />
+    <line x1="260" y1="300" x2="260" y2="410" />
+    <line x1="400" y1="80" x2="400" y2="190" />
+    <line x1="400" y1="190" x2="400" y2="300" />
+    <line x1="400" y1="300" x2="400" y2="410" />
+    <line x1="540" y1="80" x2="540" y2="190" />
+    <line x1="540" y1="190" x2="540" y2="300" />
+    <line x1="540" y1="300" x2="540" y2="410" />
+  </g>
+
+  <!-- Periodic wraparound edge stubs ("spilling out" on all sides) -->
+  <g stroke="#9ca3af" stroke-width="3" stroke-linecap="round">
+    <!-- Left side: horizontal edges continue outward -->
+    <line x1="120" y1="80" x2="82" y2="80" />
+    <line x1="120" y1="190" x2="82" y2="190" />
+    <line x1="120" y1="300" x2="82" y2="300" />
+    <line x1="120" y1="410" x2="82" y2="410" />
+
+    <!-- Right side: horizontal edges continue outward -->
+    <line x1="540" y1="80" x2="578" y2="80" />
+    <line x1="540" y1="190" x2="578" y2="190" />
+    <line x1="540" y1="300" x2="578" y2="300" />
+    <line x1="540" y1="410" x2="578" y2="410" />
+
+    <!-- Top side: vertical edges continue outward -->
+    <line x1="120" y1="80" x2="120" y2="46" />
+    <line x1="260" y1="80" x2="260" y2="46" />
+    <line x1="400" y1="80" x2="400" y2="46" />
+    <line x1="540" y1="80" x2="540" y2="46" />
+
+    <!-- Bottom side: vertical edges continue outward -->
+    <line x1="120" y1="410" x2="120" y2="444" />
+    <line x1="260" y1="410" x2="260" y2="444" />
+    <line x1="400" y1="410" x2="400" y2="444" />
+    <line x1="540" y1="410" x2="540" y2="444" />
+  </g>
+
+  <!-- Highlighted X stabilizer acts on boundary edges (red) -->
+  <g stroke="#dc2626" stroke-width="6" stroke-linecap="round">
+    <line x1="120" y1="80" x2="260" y2="80" />
+    <line x1="260" y1="80" x2="260" y2="190" />
+    <line x1="120" y1="190" x2="260" y2="190" />
+    <line x1="120" y1="80" x2="120" y2="190" />
+  </g>
+
+  <!-- Highlighted Z stabilizer acts on incident edges (blue) -->
+  <g stroke="#2563eb" stroke-width="6" stroke-linecap="round">
+    <line x1="260" y1="300" x2="400" y2="300" />
+    <line x1="400" y1="300" x2="540" y2="300" />
+    <line x1="400" y1="190" x2="400" y2="300" />
+    <line x1="400" y1="300" x2="400" y2="410" />
+  </g>
+
+  <!-- Vertices -->
+  <g fill="#111827">
+    <circle cx="120" cy="80" r="5.2" />
+    <circle cx="260" cy="80" r="5.2" />
+    <circle cx="400" cy="80" r="5.2" />
+    <circle cx="540" cy="80" r="5.2" />
+    <circle cx="120" cy="190" r="5.2" />
+    <circle cx="260" cy="190" r="5.2" />
+    <circle cx="400" cy="190" r="5.2" />
+    <circle cx="540" cy="190" r="5.2" />
+    <circle cx="120" cy="300" r="5.2" />
+    <circle cx="260" cy="300" r="5.2" />
+    <circle cx="400" cy="300" r="6.8" fill="#2563eb" />
+    <circle cx="540" cy="300" r="5.2" />
+    <circle cx="120" cy="410" r="5.2" />
+    <circle cx="260" cy="410" r="5.2" />
+    <circle cx="400" cy="410" r="5.2" />
+    <circle cx="540" cy="410" r="5.2" />
+  </g>
+</svg>

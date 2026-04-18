@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="title desc">
+  <title id="title">Genus-2 surface with representative loops</title>
+  <desc id="desc">A stylized genus-2 pretzel surface with several loops, including contractible and non-contractible examples.</desc>
+
+  <defs>
+    <linearGradient id="surfaceFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7f5ff" />
+      <stop offset="100%" stop-color="#ebe8fb" />
+    </linearGradient>
+    <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4b5563" />
+    </marker>
+  </defs>
+
+  <!-- Main genus-2 "pretzel" silhouette -->
+  <path
+    d="M130,205
+       C130,135 178,92 245,92
+       C279,92 313,108 336,132
+       C357,104 398,84 446,84
+       C496,84 540,106 562,142
+       C585,108 620,92 653,92
+       C722,92 770,138 770,206
+       C770,273 724,316 655,316
+       C620,316 586,299 562,272
+       C539,309 494,332 446,332
+       C397,332 356,311 336,283
+       C313,303 279,316 245,316
+       C177,316 130,273 130,205 Z"
+    fill="url(#surfaceFill)"
+    stroke="#c7c2ea"
+    stroke-width="3"
+  />
+
+  <!-- Two "holes" -->
+  <ellipse cx="270" cy="202" rx="66" ry="52" fill="#ffffff" stroke="#d7d2ef" stroke-width="2.5" />
+  <ellipse cx="624" cy="202" rx="66" ry="52" fill="#ffffff" stroke="#d7d2ef" stroke-width="2.5" />
+
+  <!-- Subtle surface guide curves -->
+  <g stroke="#d9d4f1" stroke-width="1.7" fill="none" opacity="0.9">
+    <path d="M166,184 C250,164 344,164 430,184" />
+    <path d="M456,184 C544,164 638,164 734,184" />
+    <path d="M172,230 C262,252 350,252 430,230" />
+    <path d="M456,230 C544,252 640,252 734,230" />
+  </g>
+
+  <!-- Non-contractible loops -->
+  <g fill="none" stroke-linecap="round">
+    <!-- Loop around left handle -->
+    <ellipse cx="270" cy="202" rx="99" ry="78" stroke="#2f66d0" stroke-width="4" />
+    <!-- Loop around right handle -->
+    <ellipse cx="624" cy="202" rx="99" ry="78" stroke="#2f66d0" stroke-width="4" />
+    <!-- Loop threading both handles -->
+    <path d="M158,202 C260,126 632,126 742,202 C632,278 258,278 158,202 Z" stroke="#b45309" stroke-width="4" />
+  </g>
+
+  <!-- Contractible loops -->
+  <g fill="none" stroke="#5a9f47" stroke-width="3" stroke-dasharray="6 5" stroke-linecap="round">
+    <ellipse cx="230" cy="162" rx="26" ry="18" />
+    <ellipse cx="664" cy="246" rx="24" ry="17" />
+  </g>
+
+  <!-- Labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#374151">
+    <text x="30" y="66" font-size="18">non-contractible loop</text>
+    <line x1="194" y1="70" x2="218" y2="126" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrowHead)" />
+
+    <text x="752" y="66" font-size="18">non-contractible loop</text>
+    <line x1="900" y1="70" x2="706" y2="126" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrowHead)" />
+
+    <text x="26" y="325" font-size="18">contractible loop</text>
+    <line x1="182" y1="317" x2="219" y2="181" stroke="#4b5563" stroke-width="1.7" marker-end="url(#arrowHead)" />
+  </g>
+</svg>
