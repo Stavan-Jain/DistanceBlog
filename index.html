@@ -252,6 +252,10 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 <!-- SECTION 1 -->
 <h2>1. The Lattice</h2>
 <p>We work with the surface code on a torus (periodic boundary conditions), sometimes called the <em>toric code</em>. The lattice is an $L \times L$ square grid, with all arithmetic on coordinates taken modulo $L$.</p>
+<figure style="margin: 1.15rem 0 1.25rem;">
+  <img src="toric-code-lattice-l4.svg" alt="Diagram of the 4 by 4 toric code lattice with edge qubits and highlighted X and Z stabilizers." style="display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff;">
+  <figcaption style="font-family: var(--sans); font-size: 0.86rem; color: var(--muted); margin-top: 0.5rem;">The 4&times;4 toric code lattice. Qubits sit on edges; X-type stabilizers act on the four edges of a face (red); Z-type stabilizers act on the four edges incident to a vertex (blue).</figcaption>
+</figure>
 <ul>
   <li><strong>Vertices:</strong> $(x, y)$ for $x, y \in \{0, 1, \ldots, L-1\}$. There are $L^2$ vertices.</li>
   <li><strong>Edges:</strong> Two types.
