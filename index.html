@@ -350,6 +350,8 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   <li>$C_2 = \mathbb{F}_2^{L^2}$: subsets of faces.</li>
 </ul>
 <p>The <em>weight</em> of a 1-chain $c \in C_1$, denoted $|c|$, is the number of edges it contains.</p>
+<p>The key observation is that these three spaces are connected by a chain of linear maps, each going one dimension down: $\partial_2$ sends faces to edges (their perimeter), and $\partial_1$ sends edges to vertices (their endpoints). Together they form the chain complex</p>
+$$C_2 \xrightarrow{\partial_2} C_1 \xrightarrow{\partial_1} C_0.$$
 
 <div class="block">
   <div class="block-label">Definition (Boundary maps)</div>
@@ -374,6 +376,7 @@ This is the set of four edges forming the perimeter of the face.</p>
 <p>Now consider $\partial_2$ applied to two adjacent faces $F(0,0)$ and $F(1,0)$ (side by side horizontally). Their shared boundary edge is $V(1,0)$. Over $\mathbb{F}_2$:
 $$\partial_2(F(0,0)) + \partial_2(F(1,0)) = H(0,0) + H(0,1) + V(0,0) + V(1,0) + H(1,0) + H(1,1) + V(1,0) + V(2,0)$$
 The edge $V(1,0)$ appears twice and cancels, leaving six edges forming the outer perimeter of the two-face rectangle. This illustrates the general principle: shared (interior) edges always cancel, so $\partial_2(\mathcal{F})$ is the outer boundary of $\mathcal{F}$.</p>
+<p>Before defining cycles and boundaries, we establish a key property: applying $\partial_1$ after $\partial_2$ always gives zero. This is the algebraic expression of the geometric fact that the boundary of a boundary is empty &mdash; the perimeter of any set of faces has no dangling endpoints.</p>
 
 <div class="block">
   <div class="block-label">Lemma 2.1</div>
@@ -454,6 +457,7 @@ The edge $V(1,0)$ appears twice and cancels, leaving six edges forming the outer
   <span class="proof-label">Proof.</span> If $c = \partial_2(\mathcal{F})$, then $\partial_1(c) = \partial_1(\partial_2(\mathcal{F})) = 0$ by Lemma 2.1. <span class="qed">$\square$</span>
 </div>
 <p>We can also see this geometrically: $\partial_2(\mathcal{F})$ consists of all edges bordering exactly one face of $\mathcal{F}$. At any vertex $v$, consider the (up to four) faces meeting at $v$. Each face in $\mathcal{F}$ that meets $v$ contributes exactly 2 of its boundary edges incident to $v$. Over $\mathbb{F}_2$, each such face contributes an even number of incident boundary-edges in $\partial_2(\mathcal{F})$. The total count of edges of $\partial_2(\mathcal{F})$ incident to $v$ is a sum of even numbers, hence even.</p>
+<p>Since two cycles that differ by a boundary represent the same logical operator, we want to group them together. The right algebraic structure for this is the quotient $Z_1 / B_1$, which we call the first homology group.</p>
 
 <div class="block">
   <div class="block-label">Definition (First homology group)</div>
