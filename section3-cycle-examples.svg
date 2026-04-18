@@ -38,10 +38,10 @@
     <line x1="85" y1="130" x2="85" y2="108" /><line x1="165" y1="130" x2="165" y2="108" /><line x1="245" y1="130" x2="245" y2="108" />
     <line x1="85" y1="270" x2="85" y2="292" /><line x1="165" y1="270" x2="165" y2="292" /><line x1="245" y1="270" x2="245" y2="292" />
   </g>
-  <g stroke="#c2410c" stroke-width="6" stroke-linecap="round" fill="none">
+  <g stroke="#7c3aed" stroke-width="6" stroke-linecap="round" fill="none">
     <line x1="85" y1="270" x2="165" y2="270" />
   </g>
-  <g fill="#b91c1c">
+  <g fill="#7c3aed">
     <circle cx="85" cy="270" r="6.3" />
     <circle cx="165" cy="270" r="6.3" />
   </g>
@@ -69,8 +69,8 @@
     <line x1="420" y1="130" x2="420" y2="108" /><line x1="500" y1="130" x2="500" y2="108" /><line x1="580" y1="130" x2="580" y2="108" />
     <line x1="420" y1="270" x2="420" y2="292" /><line x1="500" y1="270" x2="500" y2="292" /><line x1="580" y1="270" x2="580" y2="292" />
   </g>
-  <rect x="420" y="200" width="80" height="70" fill="#e7d9c8" opacity="0.75" />
-  <g stroke="#c46d32" stroke-width="6" stroke-linecap="round" fill="none">
+  <rect x="420" y="200" width="80" height="70" fill="#ccfbf1" opacity="0.78" />
+  <g stroke="#0f766e" stroke-width="6" stroke-linecap="round" fill="none">
     <line x1="420" y1="270" x2="500" y2="270" />
     <line x1="420" y1="200" x2="500" y2="200" />
     <line x1="420" y1="200" x2="420" y2="270" />
@@ -82,7 +82,7 @@
     <circle cx="420" cy="270" r="4.8" />
     <circle cx="500" cy="270" r="4.8" />
   </g>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#5f4f3f">
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#134e4a">
     <text x="444" y="240" font-size="17">F(0,0)</text>
     <text x="436" y="292" font-size="12">H(0,0)</text>
     <text x="436" y="191" font-size="12">H(0,1)</text>
@@ -105,7 +105,7 @@
     <line x1="755" y1="130" x2="755" y2="108" /><line x1="835" y1="130" x2="835" y2="108" /><line x1="915" y1="130" x2="915" y2="108" />
     <line x1="755" y1="270" x2="755" y2="292" /><line x1="835" y1="270" x2="835" y2="292" /><line x1="915" y1="270" x2="915" y2="292" />
   </g>
-  <g stroke="#c46d32" stroke-width="6" stroke-linecap="round" fill="none">
+  <g stroke="#7c3aed" stroke-width="6" stroke-linecap="round" fill="none">
     <line x1="755" y1="270" x2="835" y2="270" />
     <line x1="835" y1="270" x2="915" y2="270" />
     <!-- Highlighted periodic continuation stubs for c_h -->
