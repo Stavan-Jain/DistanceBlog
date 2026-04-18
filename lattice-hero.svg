@@ -3,7 +3,7 @@
   <desc id="desc">A 4 by 4 toric code lattice with highlighted X-type and Z-type stabilizer supports and periodic boundary spill-out edges.</desc>
 
   <!-- Highlighted X-type plaquette face -->
-  <rect x="120" y="80" width="140" height="110" fill="#dc2626" opacity="0.14" stroke="#b91c1c" stroke-width="2.2" />
+  <rect x="120" y="80" width="140" height="110" fill="#7c3aed" opacity="0.14" stroke="#6d28d9" stroke-width="2.2" />
 
   <!-- Lattice edges -->
   <g stroke="#9ca3af" stroke-width="3" stroke-linecap="round">
@@ -63,16 +63,16 @@
     <line x1="540" y1="410" x2="540" y2="444" />
   </g>
 
-  <!-- Highlighted X stabilizer acts on boundary edges (red) -->
-  <g stroke="#dc2626" stroke-width="6" stroke-linecap="round">
+  <!-- Highlighted X stabilizer acts on boundary edges (violet) -->
+  <g stroke="#7c3aed" stroke-width="6" stroke-linecap="round">
     <line x1="120" y1="80" x2="260" y2="80" />
     <line x1="260" y1="80" x2="260" y2="190" />
     <line x1="120" y1="190" x2="260" y2="190" />
     <line x1="120" y1="80" x2="120" y2="190" />
   </g>
 
-  <!-- Highlighted Z stabilizer acts on incident edges (blue) -->
-  <g stroke="#2563eb" stroke-width="6" stroke-linecap="round">
+  <!-- Highlighted Z stabilizer acts on incident edges (teal) -->
+  <g stroke="#0f766e" stroke-width="6" stroke-linecap="round">
     <line x1="260" y1="300" x2="400" y2="300" />
     <line x1="400" y1="300" x2="540" y2="300" />
     <line x1="400" y1="190" x2="400" y2="300" />
@@ -91,7 +91,7 @@
     <circle cx="540" cy="190" r="5.2" />
     <circle cx="120" cy="300" r="5.2" />
     <circle cx="260" cy="300" r="5.2" />
-    <circle cx="400" cy="300" r="6.8" fill="#2563eb" />
+    <circle cx="400" cy="300" r="6.8" fill="#0f766e" />
     <circle cx="540" cy="300" r="5.2" />
     <circle cx="120" cy="410" r="5.2" />
     <circle cx="260" cy="410" r="5.2" />
