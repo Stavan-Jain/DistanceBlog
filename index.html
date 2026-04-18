@@ -235,7 +235,8 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   <li><strong>There exist non-contractible loops of length $L$.</strong> A horizontal row of $L$ edges wrapping around the torus is such a loop. So the distance is at most $L$.</li>
   <li><strong>No non-contractible loop has length less than $L$.</strong> A non-contractible loop must "wrap all the way around" the torus, which requires at least $L$ edges. Therefore the distance is at least $L$.</li>
 </ol>
-<p>Steps 1 and 2 are solid. Step 3 is the problem. It feels obvious &mdash; of course you need at least $L$ edges to get around an $L \times L$ torus. But "wrapping all the way around" is doing a lot of informal work here. A non-contractible loop doesn't have to look like a straight horizontal line. It could zig-zag, include vertical segments, wander wildly across the lattice. Why can't some clever squiggly path wrap around the torus using fewer than $L$ edges? The geometric intuition is compelling, but it isn't a proof.</p>
+<p>Steps 1 and 2 are solid. Step 1 is a consequence of the stabilizer formalism and the structure of the toric code, and Arthur's post develops it convincingly. Step 2 is proved by exhibiting a specific loop &mdash; nothing more is needed.</p>
+<p>Step 3 is the problem. It feels obvious &mdash; of course you need at least $L$ edges to get around an $L \times L$ torus. But "wrapping all the way around" is doing a lot of informal work here. A non-contractible loop doesn't have to look like a straight horizontal line. It could zig-zag, include vertical segments, wander wildly across the lattice. Why can't some clever squiggly path wrap around the torus using fewer than $L$ edges? The geometric intuition is compelling, but it isn't a proof.</p>
 <p>To make it a proof, we need to answer two questions precisely:</p>
 <ul>
   <li><strong>What exactly distinguishes a non-contractible loop from a contractible one?</strong> We need a formal invariant &mdash; a quantity we can compute from a cycle that is zero for all boundaries and nonzero for non-contractible loops.</li>
@@ -245,16 +246,17 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 <h2>The topological approach</h2>
 <p>This is where the language of homology enters. The key idea is to define two $\mathbb{F}_2$-valued invariants, $h(c)$ and $v(c)$, that detect whether a cycle "wraps around" the torus horizontally or vertically. These invariants have three crucial properties:</p>
 <ul>
-  <li>They are <strong>well-defined on homology classes</strong>: adding a boundary to a cycle doesn't change its $h$ or $v$ values.</li>
+  <li>They are <strong>well-defined on homology classes</strong>: adding a boundary to a cycle doesn't change its $h$ or $v$ values. So they genuinely distinguish non-trivial cycles from boundaries.</li>
   <li>They <strong>completely classify</strong> the four cosets of the first homology group $H_1$. A cycle is a boundary if and only if $h = v = 0$.</li>
   <li>They <strong>force a minimum weight</strong>. If $h(c) = 1$, then $c$ must contain at least one horizontal edge at each of $L$ distinct $x$-coordinates &mdash; giving at least $L$ edges. Similarly for $v(c) = 1$.</li>
 </ul>
+<p>Together, these three properties turn the informal "wrapping requires $L$ steps" into a rigorous proof.</p>
 
 <h2>What you'll need</h2>
 <p>This post assumes familiarity with the stabilizer formalism (stabilizer groups, codespace, logical operators, distance). If you need a refresher, Arthur Pesah's <a href="https://arthurpesah.me/blog/2023-01-31-stabilizer-formalism-1/">series on the stabilizer formalism</a> is a great starting point. We'll also use basic linear algebra over $\mathbb{F}_2$ (vector spaces, kernels, rank-nullity), but no prior knowledge of algebraic topology &mdash; we build up everything we need from scratch.</p>
 
 <h2>Roadmap</h2>
-<p>Sections 1&ndash;3 set up the lattice, define the chain complex, and introduce cycles, boundaries, and the first homology group $H_1$. Section 4 connects this formalism to the toric code. Section 5 computes $\dim(H_1) = 2$ using rank-nullity. Section 6 defines the invariants $h$ and $v$. Section 7 proves that these invariants give an isomorphism $H_1 \cong \mathbb{F}_2^2$. Section 8 combines everything to prove that the distance is exactly $L$.</p>
+<p>We proceed as follows. Sections 1&ndash;3 set up the lattice, define the chain complex, and introduce cycles, boundaries, and the first homology group $H_1$. Section 4 connects this formalism to the toric code, showing that non-trivial X-type logicals correspond to non-trivial elements of $H_1$, and introduces the dual lattice for Z-type logicals. Section 5 computes $\dim(H_1) = 2$ using rank-nullity. Section 6 defines the invariants $h$ and $v$ and establishes their key properties. Section 7 proves that these invariants give an isomorphism $H_1 \cong \mathbb{F}_2^2$. Finally, Section 8 combines everything to prove that the distance is exactly $L$.</p>
 
 <hr>
 
@@ -265,14 +267,19 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   <li><strong>Vertices:</strong> $(x, y)$ for $x, y \in \{0, 1, \ldots, L-1\}$. There are $L^2$ vertices.</li>
   <li><strong>Edges:</strong> Two types.
     <ul>
-      <li><em>Horizontal edges:</em> $H(x, y)$ connects $(x, y)$ to $(x+1, y)$.</li>
-      <li><em>Vertical edges:</em> $V(x, y)$ connects $(x, y)$ to $(x, y+1)$.</li>
+      <li><em>Horizontal edges:</em> $H(x, y)$ connects $(x, y)$ to $(x+1, y)$. There are $L^2$ horizontal edges.</li>
+      <li><em>Vertical edges:</em> $V(x, y)$ connects $(x, y)$ to $(x, y+1)$. There are $L^2$ vertical edges.</li>
       <li>In total, $n = 2L^2$ edges.</li>
     </ul>
   </li>
   <li><strong>Faces:</strong> $F(x, y)$ is the unit square with corners $(x,y)$, $(x+1,y)$, $(x,y+1)$, $(x+1,y+1)$. There are $L^2$ faces, with boundary edges Bottom $H(x,y)$, Top $H(x,y+1)$, Left $V(x,y)$, Right $V(x+1,y)$.</li>
 </ul>
-<p>Each edge borders exactly two faces. Each vertex is incident to exactly four edges: $H(x-1,y)$, $H(x,y)$, $V(x,y-1)$, $V(x,y)$.</p>
+<p>Each edge borders exactly two faces. Specifically:</p>
+<ul>
+  <li>$H(x,y)$ borders $F(x,y)$ (as its bottom) and $F(x,y-1)$ (as its top).</li>
+  <li>$V(x,y)$ borders $F(x,y)$ (as its left) and $F(x-1,y)$ (as its right).</li>
+</ul>
+<p>Each vertex is incident to exactly four edges: $H(x-1,y)$, $H(x,y)$, $V(x,y-1)$, $V(x,y)$.</p>
 <p>The toric code places one qubit on each of the $2L^2$ edges and defines:</p>
 <ul>
   <li><strong>X-type (plaquette) stabilizers:</strong> For each face $f$, apply $X$ to the four boundary edges of $f$.</li>
@@ -329,7 +336,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
 <!-- SECTION 2 -->
 <h2>2. The Chain Complex over $\mathbb{F}_2$</h2>
-<p>Our goal is to reason algebraically about subsets of edges. We represent edge-sets, vertex-sets, and face-sets as vectors over $\mathbb{F}_2 = \{0,1\}$, and the geometric notion of "taking the boundary" becomes a linear map.</p>
+<p>Our goal is to reason algebraically about subsets of edges &mdash; which ones form closed loops, which ones are the perimeter of a set of faces, and how to tell the difference. To do this, we represent edge-sets (and vertex-sets, and face-sets) as vectors over $\mathbb{F}_2 = \{0,1\}$, and the geometric notion of "taking the boundary" becomes a linear map. This lets us use linear algebra to study the topology of the torus.</p>
 
 <div class="block">
   <div class="block-label">Definition ($k$-cells and chains)</div>
@@ -352,7 +359,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   <div class="block-label">Definition (Boundary maps)</div>
   $\partial_2 : C_2 \to C_1$ sends a face to the sum of its four boundary edges:
   $$\partial_2(F(x,y)) = H(x,y) + H(x,y+1) + V(x,y) + V(x+1,y)$$
-  An edge $e$ is in $\partial_2(\mathcal{F})$ iff exactly one of the two faces bordering $e$ is in $\mathcal{F}$.
+  and extends linearly. For a subset of faces $\mathcal{F} \subseteq C_2$, an edge $e$ is in $\partial_2(\mathcal{F})$ if and only if an odd number of faces in $\mathcal{F}$ have $e$ on their boundary. Since each edge borders exactly two faces, this simplifies to: $e \in \partial_2(\mathcal{F})$ if and only if exactly one of the two faces bordering $e$ is in $\mathcal{F}$.
 
   $\partial_1 : C_1 \to C_0$ sends an edge to the sum of its two endpoints:
   $\partial_1(H(x,y)) = (x,y)+(x+1,y)$, $\quad\partial_1(V(x,y)) = (x,y)+(x,y+1)$.
@@ -364,9 +371,10 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   $\partial_1 \circ \partial_2 = 0$.
 </div>
 <div class="proof">
-  <span class="proof-label">Proof.</span> Apply both maps to a single face $F(x,y)$:
-  $$\partial_1(\partial_2(F(x,y))) = [(x,y)+(x+1,y)] + [(x,y+1)+(x+1,y+1)] + [(x,y)+(x,y+1)] + [(x+1,y)+(x+1,y+1)]$$
-  Each of the four corner vertices appears exactly twice, so each cancels over $\mathbb{F}_2$. <span class="qed">$\square$</span>
+  <span class="proof-label">Proof.</span> It suffices to check on a single face $F(x,y)$:
+  $$\partial_1(\partial_2(F(x,y))) = \partial_1(H(x,y)) + \partial_1(H(x,y+1)) + \partial_1(V(x,y)) + \partial_1(V(x+1,y))$$
+  $$= [(x,y)+(x+1,y)] + [(x,y+1)+(x+1,y+1)] + [(x,y)+(x,y+1)] + [(x+1,y)+(x+1,y+1)]$$
+  Each of the four corner vertices $(x,y)$, $(x+1,y)$, $(x,y+1)$, $(x+1,y+1)$ appears exactly twice, so each cancels over $\mathbb{F}_2$, giving $0$. <span class="qed">$\square$</span>
 </div>
 
 <div class="review-area">
@@ -410,7 +418,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
 <!-- SECTION 3 -->
 <h2>3. Cycles, Boundaries, and Homology</h2>
-<p>A <em>cycle</em> is an edge-set with no dangling ends (every vertex has even degree). A <em>boundary</em> is the perimeter of some set of faces. Every boundary is automatically a cycle, but some cycles wrap around the torus without being any boundary &mdash; these are the non-trivial logical operators.</p>
+<p>With the boundary maps in hand, we can now name the two kinds of edge-sets that matter for the toric code. A <em>cycle</em> is an edge-set with no dangling ends &mdash; every vertex has even degree. This includes single closed loops, disjoint unions of loops, and even the empty set. A <em>boundary</em> is the perimeter of some set of faces &mdash; a cycle that can be built by combining face boundaries. Every boundary is automatically a cycle (perimeters don't have dangling ends), but the converse fails: some cycles wrap around the torus without being the boundary of any set of faces. These non-boundary cycles are exactly the non-trivial logical operators of the code, and measuring "how many" of them there are is the purpose of the first homology group.</p>
 
 <div class="block">
   <div class="block-label">Definition</div>
@@ -427,6 +435,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 <div class="proof">
   <span class="proof-label">Proof.</span> If $c = \partial_2(\mathcal{F})$, then $\partial_1(c) = \partial_1(\partial_2(\mathcal{F})) = 0$ by Lemma 2.1. <span class="qed">$\square$</span>
 </div>
+<p>We can also see this geometrically: $\partial_2(\mathcal{F})$ consists of all edges bordering exactly one face of $\mathcal{F}$. At any vertex $v$, consider the (up to four) faces meeting at $v$. Each face in $\mathcal{F}$ that meets $v$ contributes exactly 2 of its boundary edges incident to $v$. Over $\mathbb{F}_2$, each such face contributes an even number of incident boundary-edges in $\partial_2(\mathcal{F})$. The total count of edges of $\partial_2(\mathcal{F})$ incident to $v$ is a sum of even numbers, hence even.</p>
 
 <div class="block">
   <div class="block-label">Definition (First homology group)</div>
@@ -486,7 +495,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
 <!-- SECTION 4 -->
 <h2>4. Connection to the Toric Code</h2>
-<p>Non-trivial X-type logicals correspond exactly to non-trivial elements of $H_1$ (cycles that aren't boundaries). The distance question becomes: what is the lightest non-trivial cycle?</p>
+<p>We now connect the homological machinery of Sections 2&ndash;3 to the toric code defined in Section 1. The punchline: non-trivial X-type logicals correspond exactly to non-trivial elements of $H_1$ (cycles that aren't boundaries), and the same holds for Z-type logicals on the dual lattice. This means the distance question &mdash; "what is the lightest non-trivial logical?" &mdash; becomes a question about homology: "what is the lightest non-trivial cycle?"</p>
 
 <h3>4.1 X-type logicals as non-trivial cycles</h3>
 
@@ -495,7 +504,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   An X-type operator on edge-set $c$ commutes with all Z-type stabilizers if and only if $c \in Z_1$.
 </div>
 <div class="proof">
-  <span class="proof-label">Proof.</span> The vertex stabilizer at $v$ applies $Z$ to the four edges incident to $v$. The X-type operator on $c$ anticommutes on each qubit where both operators act; the total sign is $(-1)^{|c \cap \operatorname{supp}(v)|}$. This is $+1$ for all $v$ iff every vertex has even degree in $c$, i.e., $c \in Z_1$. <span class="qed">$\square$</span>
+  <span class="proof-label">Proof.</span> The vertex stabilizer at $v$ applies $Z$ to the four edges incident to $v$. The X-type operator on $c$ applies $X$ to the edges in $c$. On each qubit (edge), the single-qubit operators are either $X$ and $Z$ (if the edge is in both $c$ and the stabilizer's support), or $X$ and $I$, or $I$ and $Z$, or $I$ and $I$. Since $X$ and $Z$ anticommute on a single qubit while all other pairs commute, the full operators commute iff they overlap on an <strong>even</strong> number of qubits; the total sign is $(-1)^{|c \cap \operatorname{supp}(v)|}$. The overlap is the number of edges in $c$ incident to $v$, so this is $+1$ for all $v$ iff every vertex has even degree in $c$, i.e., $c \in Z_1$. <span class="qed">$\square$</span>
 </div>
 
 <div class="block">
@@ -503,20 +512,22 @@ hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
   An X-type operator on edge-set $c$ is a product of plaquette stabilizers if and only if $c \in B_1$.
 </div>
 <div class="proof">
-  <span class="proof-label">Proof.</span> A product of plaquette stabilizers for face-set $\mathcal{F}$ is the X-type operator on $\partial_2(\mathcal{F})$. Every element of $B_1 = \operatorname{im}(\partial_2)$ arises this way. <span class="qed">$\square$</span>
+  <span class="proof-label">Proof.</span> Each plaquette stabilizer for face $f$ is the X-type operator on $\partial_2(f)$. Since the toric code is defined over $\mathbb{F}_2$ (applying the same Pauli twice gives the identity), a product of plaquette stabilizers for a face-set $\mathcal{F}$ is the X-type operator on $\sum_{f \in \mathcal{F}} \partial_2(f) = \partial_2(\mathcal{F})$. Every element of $B_1 = \operatorname{im}(\partial_2)$ arises this way. <span class="qed">$\square$</span>
 </div>
 
-<p>Combining: an X-type operator on $c$ is a <em>non-trivial</em> X-type logical iff $c \in Z_1 \setminus B_1$, i.e., $c$ represents a non-trivial element of $H_1$. The X-distance is:
+<p>Combining: an X-type operator on $c$ is a <em>non-trivial</em> X-type logical iff $c \in Z_1 \setminus B_1$, i.e., $c$ represents a non-trivial element of $H_1$.</p>
+<p>Since the toric code is a CSS code, we can define the <em>X-distance</em> $d_X$ and <em>Z-distance</em> $d_Z$ separately: $d_X$ is the minimum weight of a non-trivial X-type logical, $d_Z$ the minimum weight of a non-trivial Z-type logical. (We will show in Section 8.3 that the full distance satisfies $d = \min(d_X, d_Z)$.) By the correspondence above:
 $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
+the minimum weight of a non-trivial cycle.
 </p>
 
 <h3>4.2 Z-type logicals and the dual lattice</h3>
 
 <div class="block">
   <div class="block-label">Definition (Dual lattice)</div>
-  The <em>dual lattice</em> is obtained by placing a dual vertex $f^*$ at the center of each face $f$, a dual edge $e^*$ for each primal edge $e$ (connecting the two adjacent dual vertices), and a dual face $v^*$ for each primal vertex $v$. The dual is again an $L \times L$ torus with the same combinatorial structure.
+  The <em>dual lattice</em> is obtained by placing a dual vertex $f^*$ at the center of each face $f$, a dual edge $e^*$ for each primal edge $e$ (connecting the two dual vertices corresponding to the two faces bordering $e$), and a dual face $v^*$ for each primal vertex $v$ (bounded by the four dual edges corresponding to the primal edges incident to $v$). The dual lattice is again an $L \times L$ square lattice on a torus: $L^2$ dual vertices, $2L^2$ dual edges, and $L^2$ dual faces, with the same local structure (every dual vertex has degree 4, every dual face has 4 boundary edges).
 </div>
-<p>A Z-type operator on primal edge-set $c$ commutes with all X-type stabilizers iff the dual edge-set $c^* = \{e^* : e \in c\}$ is a cycle in the dual lattice. It is a product of vertex stabilizers iff $c^*$ is a boundary. So $d_Z$ = minimum weight of a non-trivial cycle in the dual lattice. We focus on $d_X = L$ first (Sections 5&ndash;8.2).</p>
+<p>A Z-type operator on primal edge-set $c$ commutes with all X-type stabilizers iff, for every face $f$, the number of edges of $c$ on the boundary of $f$ is even. Under the primal-to-dual correspondence $e \leftrightarrow e^*$, this is exactly the condition that the dual edge-set $c^* = \{e^* : e \in c\}$ has even degree at every dual vertex &mdash; i.e., $c^*$ is a cycle in the dual lattice. Similarly, the Z-type operator on $c$ is a product of vertex stabilizers iff $c^*$ is a boundary in the dual lattice (since each primal vertex stabilizer corresponds to the boundary of a dual face). So $d_Z$ equals the minimum weight of a non-trivial cycle in the dual lattice. We focus on $d_X = L$ first (Sections 5&ndash;8.2).</p>
 
 <div class="review-area">
   <div class="review-area-header">Review &mdash; Connection to the Toric Code</div>
@@ -559,17 +570,24 @@ $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
 
 <!-- SECTION 5 -->
 <h2>5. Dimension of $H_1$</h2>
-<p>We prove $\dim(H_1) = 2$, which tells us the toric code encodes $k = 2$ logical qubits and $H_1$ has $2^2 = 4$ cosets. Since $H_1 = Z_1/B_1$, we need $\dim(Z_1)$ and $\dim(B_1)$ separately. Our tool is rank-nullity.</p>
+<p>How many independent non-contractible loops does the torus have? Geometrically, the answer is clearly 2: one wrapping horizontally and one wrapping vertically. We prove this rigorously by computing $\dim(H_1) = 2$. This tells us the toric code encodes $k = 2$ logical qubits, and $H_1$ has exactly $2^2 = 4$ cosets to classify.</p>
+<p>Since $H_1 = Z_1/B_1$ is a quotient of finite-dimensional vector spaces and $B_1 \subseteq Z_1$, we have $\dim(H_1) = \dim(Z_1) - \dim(B_1)$. So we need $\dim(Z_1)$ and $\dim(B_1)$ separately. Our main tool is rank-nullity.</p>
+
+<h3>5.1 Background: rank-nullity</h3>
 
 <div class="block">
   <div class="block-label">Theorem (Rank-nullity)</div>
-  For a linear map $T: V \to W$: $\;\dim(V) = \dim(\ker T) + \operatorname{rank}(T)$.
-  Also, $\operatorname{rank}(T) = \operatorname{rank}(T^T)$ (rank equals rank of transpose over any field).
+  For a linear map $T: V \to W$ between finite-dimensional vector spaces: $\;\dim(V) = \dim(\ker T) + \operatorname{rank}(T)$, where $\operatorname{rank}(T) = \dim(\operatorname{im}(T))$. In other words: the dimension of the domain splits into two pieces &mdash; the dimension of what $T$ kills (the kernel) and the dimension of what survives in the image.
+</div>
+<p>We also use one fact about transpose maps over $\mathbb{F}_2$. A linear map $T: V \to W$ between finite-dimensional $\mathbb{F}_2$-vector spaces is represented by a matrix $M$; the <em>transpose</em> $T^T: W \to V$ is represented by $M^T$. The key property we need is:</p>
+<div class="block">
+  <div class="block-label">Fact</div>
+  $\operatorname{rank}(T) = \operatorname{rank}(T^T)$. (Both equal the size of the largest nonsingular square submatrix of $M$, over any field.)
 </div>
 
 <h3>5.2 Computing $\dim(Z_1)$</h3>
-<p>$Z_1 = \ker(\partial_1)$. By rank-nullity: $2L^2 = \dim(Z_1) + \operatorname{rank}(\partial_1)$. We compute $\operatorname{rank}(\partial_1)$ via its transpose.</p>
-<p>$\partial_1^T: C_0 \to C_1$ maps a vertex-subset $S$ to the <em>edge cut</em> of $S$: edges with exactly one endpoint in $S$.</p>
+<p>$Z_1 = \ker(\partial_1)$. By rank-nullity applied to $\partial_1$: $2L^2 = \dim(Z_1) + \operatorname{rank}(\partial_1)$. Rather than computing $\operatorname{rank}(\partial_1)$ directly, it is easier to compute $\operatorname{rank}(\partial_1^T)$ (which is equal) and then find $\dim(\ker(\partial_1^T))$ using rank-nullity.</p>
+<p><strong>What does $\partial_1^T$ do?</strong> Since $\partial_1: C_1 \to C_0$ maps edge-space to vertex-space, its transpose $\partial_1^T: C_0 \to C_1$ maps vertex-space to edge-space. Concretely, $\partial_1$ is represented by a matrix $M$ with $M_{v,e} = 1$ iff $v$ is an endpoint of $e$; the transpose $M^T$ has $M^T_{e,v} = 1$ iff $v$ is an endpoint of $e$. So $\partial_1^T$ maps a subset of vertices $S$ to the set of edges with an odd number of endpoints in $S$. Since every edge has exactly two endpoints, this is the set of edges with exactly one endpoint in $S$ &mdash; the <em>edge cut</em> (or <em>coboundary</em>) of $S$.</p>
 
 <div class="block">
   <div class="block-label">Lemma 5.1</div>
@@ -603,7 +621,7 @@ $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
   $\dim(\ker(\partial_2)) = 1$.
 </div>
 <div class="proof">
-  <span class="proof-label">Proof.</span> $\mathcal{F} \in \ker(\partial_2)$ iff every edge borders an even number of faces in $\mathcal{F}$. Since each edge borders exactly two faces, adjacent faces must both be in $\mathcal{F}$ or both absent. By connectedness of the face-adjacency graph, $\mathcal{F}$ is $\emptyset$ or all faces. <span class="qed">$\square$</span>
+  <span class="proof-label">Proof.</span> $\mathcal{F} \in \ker(\partial_2)$ iff every edge borders an even number of faces in $\mathcal{F}$. Since each edge borders exactly two faces, adjacent faces must both be in $\mathcal{F}$ or both absent. By connectedness of the face-adjacency graph, $\mathcal{F}$ is $\emptyset$ or all faces. One can verify directly that $\partial_2(\text{all faces}) = 0$: each edge borders exactly two faces, both in $\mathcal{F}$, so each edge appears $2 \equiv 0 \pmod 2$ times. <span class="qed">$\square$</span>
 </div>
 
 <div class="block">
@@ -667,7 +685,9 @@ $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
 
 <!-- SECTION 6 -->
 <h2>6. The Invariants $h$ and $v$</h2>
-<p>We know $H_1 \cong \mathbb{F}_2^2$ as sets (4 cosets), but how do we tell which coset a cycle belongs to? We define two parity-valued invariants.</p>
+<p>We know from Theorem 5.6 that $H_1$ is a 2-dimensional vector space over $\mathbb{F}_2$, so it has exactly 4 elements (cosets). But the dimension count alone doesn't tell us how to <em>distinguish</em> these cosets &mdash; given a cycle, how can we tell which coset it belongs to?</p>
+<p>To answer this, we need concrete invariants: quantities that we can compute from a cycle $c$ that (a) depend only on the coset of $c$ (i.e., don't change when we add a boundary), and (b) take different values on different cosets.</p>
+<p>The idea is geometric. On the torus, a non-trivial cycle must "wrap around" in at least one direction. We can detect this wrapping by counting how many times a cycle crosses a given "slice" of the torus. Concretely, we define two parity-valued invariants &mdash; $h(c)$ and $v(c)$ &mdash; that detect horizontal and vertical wrapping respectively. Together, they give a complete classification of cosets and, crucially, a tool for proving the distance lower bound.</p>
 
 <h3>6.1 Definitions</h3>
 
@@ -679,6 +699,7 @@ $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
   $$v_{y_0}(c) = \bigl|\{x : V(x, y_0) \in c\}\bigr| \bmod 2$$
   the parity of vertical edges of $c$ at $y$-coordinate $y_0$.
 </div>
+<p>We use the notation $[P]$ for the <em>Iverson bracket</em>: $[P] = 1$ if the statement $P$ is true, and $[P] = 0$ otherwise. For example, $[H(x_0, y) \in c]$ is 1 if the edge $H(x_0, y)$ belongs to $c$, and 0 otherwise.</p>
 
 <div class="block">
   <div class="block-label">Lemma 6.1</div>
@@ -695,11 +716,18 @@ $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
   If $c \in Z_1$, then $h_{x_0}(c)$ is the same for all $x_0$, and $v_{y_0}(c)$ is the same for all $y_0$.
 </div>
 <div class="proof">
-  <span class="proof-label">Proof.</span> Sum the even-degree condition over the $L$ vertices in column $x = x_0 + 1$:
+  <span class="proof-label">Proof.</span> We show $h_{x_0}(c) = h_{x_0+1}(c)$; the result for all $x_0$ follows by induction. Sum the even-degree condition over the $L$ vertices in column $x = x_0 + 1$:
   $$\sum_y \deg_c(x_0+1,y) \equiv 0 \pmod{2}$$
-  Expanding: edges incident to each $(x_0+1,y)$ are $H(x_0,y)$, $H(x_0+1,y)$, $V(x_0+1,y-1)$, $V(x_0+1,y)$. Summing over all $y$, the two vertical sums run over the same $L$ edges (indices are mod $L$) and cancel:
+  The edges incident to vertex $(x_0+1, y)$ are:
+  <ul>
+    <li>$H(x_0, y)$ &mdash; a horizontal edge at $x$-coordinate $x_0$</li>
+    <li>$H(x_0+1, y)$ &mdash; a horizontal edge at $x$-coordinate $x_0 + 1$</li>
+    <li>$V(x_0+1, y-1)$ &mdash; a vertical edge</li>
+    <li>$V(x_0+1, y)$ &mdash; a vertical edge</li>
+  </ul>
+  Summing over all $y$, the two vertical sums run over the same $L$ edges (indices mod $L$) and cancel mod 2:
   $$\sum_y [H(x_0,y) \in c] + \sum_y [H(x_0{+}1,y) \in c] \equiv 0 \pmod 2$$
-  So $h_{x_0}(c) = h_{x_0+1}(c)$. <span class="qed">$\square$</span>
+  So $h_{x_0}(c) = h_{x_0+1}(c)$. The proof that $v_{y_0}(c) = v_{y_0+1}(c)$ is analogous. <span class="qed">$\square$</span>
 </div>
 <p>For cycles we write simply $h(c)$ and $v(c)$ since the values are coordinate-independent.</p>
 
@@ -764,20 +792,27 @@ $$d_X = \min\{|c| : c \in Z_1 \setminus B_1\}$$
 
 <!-- SECTION 7 -->
 <h2>7. The Isomorphism $H_1 \cong \mathbb{F}_2^2$</h2>
-<p>We now show $\varphi: H_1 \to \mathbb{F}_2^2$ is an isomorphism, meaning $h$ and $v$ completely classify cosets: two cycles are homologous iff they have the same $(h,v)$ values. This guarantees every non-trivial cycle has $h=1$ or $v=1$ (or both) &mdash; the key to the distance lower bound.</p>
+<p>We have established two things so far: $H_1$ is a 2-dimensional $\mathbb{F}_2$-vector space (Section 5), and we have a well-defined linear map $\varphi: H_1 \to \mathbb{F}_2^2$ that assigns to each cycle its $(h, v)$ invariants (Section 6). We now show that $\varphi$ is an isomorphism. This means the invariants $h$ and $v$ completely classify the cosets of $H_1$: two cycles are homologous if and only if they have the same $(h, v)$ values. This is the key fact that enables the distance proof in Section 8, because it guarantees that every non-trivial cycle has $h = 1$ or $v = 1$ (or both), and we will show that either condition forces the cycle to have weight at least $L$.</p>
 
 <div class="block">
   <div class="block-label">Theorem 7.1</div>
   $\varphi: H_1 \to \mathbb{F}_2^2$ is an isomorphism.
 </div>
 <div class="proof">
-  <span class="proof-label">Proof.</span> $\dim(H_1) = 2 = \dim(\mathbb{F}_2^2)$, so it suffices to show surjectivity.
+  <span class="proof-label">Proof.</span> By Theorem 5.6, $\dim(H_1) = 2 = \dim(\mathbb{F}_2^2)$. Since $\varphi$ is linear (Lemma 6.5) and maps between spaces of the same finite dimension, it suffices to show surjectivity (surjectivity + equal dimensions $\Rightarrow$ injectivity).
 
-  <p><strong>Representative for $(1,0)$:</strong> Let $c_h = \{H(x,0) : x=0,\ldots,L-1\}$. This is a cycle (each vertex meets 0 or 2 edges of $c_h$), has $h(c_h) = 1$ (exactly one horizontal edge per $x$-slice), $v(c_h)=0$ (no vertical edges), and is not a boundary since $h(c_h)=1 \neq 0$ while all boundaries have $h=0$. So $\varphi([c_h]) = (1,0)$.</p>
+  <p><strong>Representative for $(1,0)$:</strong> Let $c_h = \{H(x,0) : x=0,\ldots,L-1\}$, the horizontal loop along row $y=0$.</p>
+  <ul>
+    <li><em>$c_h$ is a cycle:</em> At any vertex $(x,y)$, the edges of $c_h$ incident to it are $H(x-1,0)$ and $H(x,0)$ if $y = 0$, and none otherwise. In either case, the count is even (2 or 0).</li>
+    <li><em>$h(c_h) = 1$:</em> At $x$-coordinate $x_0$, the only horizontal edge of $c_h$ is $H(x_0, 0)$. So $h_{x_0}(c_h) = 1$.</li>
+    <li><em>$v(c_h) = 0$:</em> $c_h$ contains no vertical edges.</li>
+    <li><em>$c_h$ is not a boundary:</em> By Lemma 6.3, every boundary $b$ has $h(b) = 0$. Since $h(c_h) = 1$, $c_h$ cannot be a boundary.</li>
+  </ul>
+  <p>Therefore $\varphi([c_h]) = (1,0)$.</p>
 
-  <p><strong>Representative for $(0,1)$:</strong> $c_v = \{V(0,y): y=0,\ldots,L-1\}$. By the symmetric argument, $\varphi([c_v]) = (0,1)$.</p>
+  <p><strong>Representative for $(0,1)$:</strong> Let $c_v = \{V(0,y): y=0,\ldots,L-1\}$, the vertical loop along column $x=0$. By an analogous argument, $c_v$ is a cycle with $\varphi([c_v]) = (0,1)$, and $c_v \notin B_1$ since $v(c_v) = 1$ while $v(b) = 0$ for all boundaries.</p>
 
-  <p><strong>Representative for $(1,1)$:</strong> $c_{hv} = c_h + c_v$. By linearity of $\varphi$: $\varphi([c_{hv}]) = (1,0)+(0,1) = (1,1)$.</p>
+  <p><strong>Representative for $(1,1)$:</strong> $c_{hv} = c_h + c_v$ (symmetric difference). By linearity of $\varphi$: $\varphi([c_{hv}]) = (1,0)+(0,1) = (1,1)$, and $c_{hv} \notin B_1$ since $\varphi([c_{hv}]) \neq (0,0)$ while $\varphi$ sends all boundaries to $(0,0)$.</p>
 
   Thus $\varphi$ is surjective, hence an isomorphism. <span class="qed">$\square$</span>
 </div>
@@ -847,12 +882,19 @@ $$|c| \geq \sum_{x=0}^{L-1} |c \cap S_x| \geq L$$</p>
 </div>
 <div class="proof">
   <span class="proof-label">Proof.</span>
-  <p>Any Pauli $P$ can be written as $P = X^a Z^b$ with $a,b \in \mathbb{F}_2^n$. In a CSS code, $P$ commutes with all stabilizers iff $a \in Z_1$ and $b \in Z_1^*$ independently, and $P$ is a stabilizer iff $a \in B_1$ <em>and</em> $b \in B_1^*$. So $P$ is a non-trivial logical iff it commutes with all stabilizers and $a \in Z_1\setminus B_1$ or $b \in Z_1^*\setminus B_1^*$.</p>
+  <p><strong>Decomposition.</strong> Any $n$-qubit Pauli $P$ can be written (up to a global phase $\pm 1, \pm i$) as $P = X^a Z^b$, where $a, b \in \mathbb{F}_2^n$ and $X^a = X_1^{a_1} \otimes \cdots \otimes X_n^{a_n}$ (similarly $Z^b$). Write $\operatorname{supp}(a) = \{i : a_i = 1\}$ for the <em>support</em> of $a$. The weight of $P$ is $|\operatorname{supp}(a) \cup \operatorname{supp}(b)|$, since $P$ acts as identity on qubit $i$ only when $a_i = b_i = 0$.</p>
+  <p><strong>Commutation.</strong> In a CSS code, every stabilizer generator is either purely X-type or purely Z-type. We use two facts:</p>
+  <ul>
+    <li>$X^a Z^b$ commutes with an X-type operator $X^s$ iff $|\operatorname{supp}(b) \cap \operatorname{supp}(s)|$ is even. (The $X^a$ part always commutes with $X^s$; the $Z^b$ part anticommutes on each qubit where both act, contributing $(-1)^{|\operatorname{supp}(b) \cap \operatorname{supp}(s)|}$.)</li>
+    <li>$X^a Z^b$ commutes with a Z-type operator $Z^t$ iff $|\operatorname{supp}(a) \cap \operatorname{supp}(t)|$ is even.</li>
+  </ul>
+  <p>Therefore, $P = X^a Z^b$ commutes with all stabilizers iff two <strong>independent</strong> conditions hold: $a$ commutes with all Z-type stabilizers (i.e., $a \in Z_1$), and $b$ commutes with all X-type stabilizers (i.e., $b \in Z_1^*$, the space of cycles in the dual lattice). This decoupling is specific to CSS codes.</p>
+  <p><strong>Non-triviality.</strong> In a CSS code, the stabilizer group factors as products of X-type and Z-type stabilizers. So $P = X^a Z^b$ is a stabilizer iff $X^a$ is a product of X-type stabilizers ($a \in B_1$) <strong>and</strong> $Z^b$ is a product of Z-type stabilizers ($b \in B_1^*$). Taking the contrapositive: $P$ is a non-trivial logical iff it commutes with all stabilizers and at least one of $a \in Z_1 \setminus B_1$ or $b \in Z_1^* \setminus B_1^*$ holds.</p>
   <p><em>Lower bound:</em> if $a \in Z_1\setminus B_1$ then $\operatorname{wt}(P) \geq |a| \geq d_X$; if $b \in Z_1^*\setminus B_1^*$ then $\operatorname{wt}(P) \geq |b| \geq d_Z$. Since at least one holds, $\operatorname{wt}(P) \geq \min(d_X,d_Z)$.</p>
   <em>Upper bound:</em> a minimum-weight non-trivial X-type logical has weight $d_X$, so $d \leq d_X$; similarly $d \leq d_Z$. Thus $d = \min(d_X, d_Z)$. <span class="qed">$\square$</span>
 </div>
 
-<p>The dual lattice has the same structure as the primal, so the entire argument gives $d_Z = L$ as well. Therefore:</p>
+<p>As shown in Section 4.2, Z-type logical operators correspond to non-trivial cycles in the dual lattice, and the dual lattice of the $L \times L$ torus is again an $L \times L$ torus with the same combinatorial structure. Therefore the entire argument of Sections 5&ndash;8.2 applies verbatim, yielding $d_Z = L$. Thus:</p>
 $$d = \min(d_X, d_Z) = \min(L, L) = L$$
 <p>The toric code is a $[[2L^2, 2, L]]$ code: $n = 2L^2$ physical qubits, $k = 2$ logical qubits, $d = L$. $\quad\blacksquare$</p>
 
@@ -898,9 +940,9 @@ $$d = \min(d_X, d_Z) = \min(L, L) = L$$
 <!-- CONCLUSION -->
 <h2>Conclusion</h2>
 <p>The proof rested on a single key idea: defining invariants $h$ and $v$ that detect whether a cycle wraps around the torus horizontally or vertically. These invariants are well-defined on homology classes, completely classify the four cosets of $H_1$, and force any non-trivial cycle to contain at least $L$ edges, because the regular structure of the square lattice guarantees $L$ disjoint "slices" each contributing at least one edge.</p>
-<p>The deeper lesson is that the distance of the toric code is a <em>topological</em> fact, not a combinatorial coincidence. The number of logical qubits comes from $\dim(H_1)$, and the distance comes from the minimum weight of a non-trivial homology class. This is why the proof naturally lives in the language of homology.</p>
+<p>The deeper lesson is that the distance of the toric code is a <em>topological</em> fact, not a combinatorial coincidence. The number of logical qubits comes from $\dim(H_1)$, and the distance comes from the minimum weight of a non-trivial homology class. This is why the proof naturally lives in the language of homology rather than, say, case analysis on paths.</p>
 <p>This perspective generalizes far beyond the square lattice. The entire framework &mdash; qubits on $k$-cells, stabilizers from boundary maps, logical operators from non-trivial homology classes &mdash; works for any cellulation of any manifold in any dimension. The distance question becomes a question about the <em>systole</em>: the shortest non-trivial cycle. This is the foundation for hyperbolic codes, higher-dimensional toric codes, and the broader family of <a href="https://errorcorrectionzoo.org/c/higher_dimensional_surface">homological codes</a>.</p>
-<p>The planar and rotated surface codes have different boundary conditions that change the homology (from $H_1 \cong \mathbb{F}_2^2$ to $H_1 \cong \mathbb{F}_2$), and the distance argument must account for paths that terminate at boundaries rather than wrapping around.</p>
+<p>That said, the specific argument we used for the lower bound &mdash; partitioning edges into $L$ disjoint slices with odd parity &mdash; exploits the regular structure of the $L \times L$ square lattice. For other manifolds or irregular cellulations, computing the distance can be significantly harder, and is in general an NP-hard problem. Even for close relatives of the toric code, modifications are needed: the planar and rotated surface codes have different boundary conditions that change the homology (from $H_1 \cong \mathbb{F}_2^2$ to $H_1 \cong \mathbb{F}_2$), and the distance argument must account for paths that terminate at boundaries rather than wrapping around.</p>
 
 <h3>Further reading</h3>
 <ul>
